@@ -1,15 +1,19 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
+import { Login } from '@/components/Login';
 import { getUser, isAdminOrModerator } from '@/features/auth/authUtils';
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/login')({
   beforeLoad: () => {
     const user = getUser();
-    if (!user) {
-      throw redirect({ to: '/login' });
-    }
+    if (!user) return;
+    // Already authenticated – send to the right dashboard
     throw redirect({
       to: isAdminOrModerator(user) ? '/admin/analytics' : '/employee/tables',
     });
   },
-  component: () => null,
+  component: RouteComponent,
 });
+
+function RouteComponent() {
+  return <Login />;
+}

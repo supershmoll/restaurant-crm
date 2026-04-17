@@ -9,38 +9,230 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegistrationRouteImport } from './routes/registration'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as EmployeeRouteImport } from './routes/employee'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmployeeTablesRouteImport } from './routes/employee/tables'
+import { Route as EmployeeStatisticsRouteImport } from './routes/employee/statistics'
+import { Route as EmployeeOrdersRouteImport } from './routes/employee/orders'
+import { Route as AdminVacationRouteImport } from './routes/admin/vacation'
+import { Route as AdminTasksRouteImport } from './routes/admin/tasks'
+import { Route as AdminShiftRouteImport } from './routes/admin/shift'
+import { Route as AdminPayrollRouteImport } from './routes/admin/payroll'
+import { Route as AdminEmployeesRouteImport } from './routes/admin/employees'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
 
+const RegistrationRoute = RegistrationRouteImport.update({
+  id: '/registration',
+  path: '/registration',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeRoute = EmployeeRouteImport.update({
+  id: '/employee',
+  path: '/employee',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmployeeTablesRoute = EmployeeTablesRouteImport.update({
+  id: '/tables',
+  path: '/tables',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeStatisticsRoute = EmployeeStatisticsRouteImport.update({
+  id: '/statistics',
+  path: '/statistics',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const EmployeeOrdersRoute = EmployeeOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => EmployeeRoute,
+} as any)
+const AdminVacationRoute = AdminVacationRouteImport.update({
+  id: '/vacation',
+  path: '/vacation',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTasksRoute = AdminTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminShiftRoute = AdminShiftRouteImport.update({
+  id: '/shift',
+  path: '/shift',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPayrollRoute = AdminPayrollRouteImport.update({
+  id: '/payroll',
+  path: '/payroll',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEmployeesRoute = AdminEmployeesRouteImport.update({
+  id: '/employees',
+  path: '/employees',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/employee': typeof EmployeeRouteWithChildren
+  '/login': typeof LoginRoute
+  '/registration': typeof RegistrationRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/payroll': typeof AdminPayrollRoute
+  '/admin/shift': typeof AdminShiftRoute
+  '/admin/tasks': typeof AdminTasksRoute
+  '/admin/vacation': typeof AdminVacationRoute
+  '/employee/orders': typeof EmployeeOrdersRoute
+  '/employee/statistics': typeof EmployeeStatisticsRoute
+  '/employee/tables': typeof EmployeeTablesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/employee': typeof EmployeeRouteWithChildren
+  '/login': typeof LoginRoute
+  '/registration': typeof RegistrationRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/payroll': typeof AdminPayrollRoute
+  '/admin/shift': typeof AdminShiftRoute
+  '/admin/tasks': typeof AdminTasksRoute
+  '/admin/vacation': typeof AdminVacationRoute
+  '/employee/orders': typeof EmployeeOrdersRoute
+  '/employee/statistics': typeof EmployeeStatisticsRoute
+  '/employee/tables': typeof EmployeeTablesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/employee': typeof EmployeeRouteWithChildren
+  '/login': typeof LoginRoute
+  '/registration': typeof RegistrationRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/employees': typeof AdminEmployeesRoute
+  '/admin/payroll': typeof AdminPayrollRoute
+  '/admin/shift': typeof AdminShiftRoute
+  '/admin/tasks': typeof AdminTasksRoute
+  '/admin/vacation': typeof AdminVacationRoute
+  '/employee/orders': typeof EmployeeOrdersRoute
+  '/employee/statistics': typeof EmployeeStatisticsRoute
+  '/employee/tables': typeof EmployeeTablesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/employee'
+    | '/login'
+    | '/registration'
+    | '/admin/analytics'
+    | '/admin/employees'
+    | '/admin/payroll'
+    | '/admin/shift'
+    | '/admin/tasks'
+    | '/admin/vacation'
+    | '/employee/orders'
+    | '/employee/statistics'
+    | '/employee/tables'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/employee'
+    | '/login'
+    | '/registration'
+    | '/admin/analytics'
+    | '/admin/employees'
+    | '/admin/payroll'
+    | '/admin/shift'
+    | '/admin/tasks'
+    | '/admin/vacation'
+    | '/employee/orders'
+    | '/employee/statistics'
+    | '/employee/tables'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/employee'
+    | '/login'
+    | '/registration'
+    | '/admin/analytics'
+    | '/admin/employees'
+    | '/admin/payroll'
+    | '/admin/shift'
+    | '/admin/tasks'
+    | '/admin/vacation'
+    | '/employee/orders'
+    | '/employee/statistics'
+    | '/employee/tables'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  EmployeeRoute: typeof EmployeeRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  RegistrationRoute: typeof RegistrationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/registration': {
+      id: '/registration'
+      path: '/registration'
+      fullPath: '/registration'
+      preLoaderRoute: typeof RegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee': {
+      id: '/employee'
+      path: '/employee'
+      fullPath: '/employee'
+      preLoaderRoute: typeof EmployeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +240,114 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/employee/tables': {
+      id: '/employee/tables'
+      path: '/tables'
+      fullPath: '/employee/tables'
+      preLoaderRoute: typeof EmployeeTablesRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/statistics': {
+      id: '/employee/statistics'
+      path: '/statistics'
+      fullPath: '/employee/statistics'
+      preLoaderRoute: typeof EmployeeStatisticsRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/employee/orders': {
+      id: '/employee/orders'
+      path: '/orders'
+      fullPath: '/employee/orders'
+      preLoaderRoute: typeof EmployeeOrdersRouteImport
+      parentRoute: typeof EmployeeRoute
+    }
+    '/admin/vacation': {
+      id: '/admin/vacation'
+      path: '/vacation'
+      fullPath: '/admin/vacation'
+      preLoaderRoute: typeof AdminVacationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/tasks': {
+      id: '/admin/tasks'
+      path: '/tasks'
+      fullPath: '/admin/tasks'
+      preLoaderRoute: typeof AdminTasksRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/shift': {
+      id: '/admin/shift'
+      path: '/shift'
+      fullPath: '/admin/shift'
+      preLoaderRoute: typeof AdminShiftRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/payroll': {
+      id: '/admin/payroll'
+      path: '/payroll'
+      fullPath: '/admin/payroll'
+      preLoaderRoute: typeof AdminPayrollRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/employees': {
+      id: '/admin/employees'
+      path: '/employees'
+      fullPath: '/admin/employees'
+      preLoaderRoute: typeof AdminEmployeesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminEmployeesRoute: typeof AdminEmployeesRoute
+  AdminPayrollRoute: typeof AdminPayrollRoute
+  AdminShiftRoute: typeof AdminShiftRoute
+  AdminTasksRoute: typeof AdminTasksRoute
+  AdminVacationRoute: typeof AdminVacationRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminEmployeesRoute: AdminEmployeesRoute,
+  AdminPayrollRoute: AdminPayrollRoute,
+  AdminShiftRoute: AdminShiftRoute,
+  AdminTasksRoute: AdminTasksRoute,
+  AdminVacationRoute: AdminVacationRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface EmployeeRouteChildren {
+  EmployeeOrdersRoute: typeof EmployeeOrdersRoute
+  EmployeeStatisticsRoute: typeof EmployeeStatisticsRoute
+  EmployeeTablesRoute: typeof EmployeeTablesRoute
+}
+
+const EmployeeRouteChildren: EmployeeRouteChildren = {
+  EmployeeOrdersRoute: EmployeeOrdersRoute,
+  EmployeeStatisticsRoute: EmployeeStatisticsRoute,
+  EmployeeTablesRoute: EmployeeTablesRoute,
+}
+
+const EmployeeRouteWithChildren = EmployeeRoute._addFileChildren(
+  EmployeeRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  EmployeeRoute: EmployeeRouteWithChildren,
+  LoginRoute: LoginRoute,
+  RegistrationRoute: RegistrationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
