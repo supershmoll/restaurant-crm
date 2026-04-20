@@ -6,7 +6,6 @@ export const Route = createFileRoute('/login')({
   beforeLoad: () => {
     const user = getUser();
     if (!user) return;
-    // Already authenticated – send to the right dashboard
     throw redirect({
       to: isAdminOrModerator(user) ? '/admin/analytics' : '/employee/tables',
     });

@@ -1,12 +1,12 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { clearAuth } from '@/features/auth/authUtils';
-import Home_light from '../assets/images/Home_light.svg';
-import Calendar_light from '../assets/images/Calendar_light.svg';
-import Wallet_alt_light from '../assets/images/Wallet_alt_light.svg';
-import Subttasks_light from '../assets/images/Subttasks_light.svg';
-import Line_up_light from '../assets/images/Line_up_light.svg';
-import Group_light from '../assets/images/Group_light.svg';
-import suitcase_light from '../assets/images/suitcase_light.svg';
+import Home_light from '/images/Home_light.svg';
+import Calendar_light from '/images/Calendar_light.svg';
+import Wallet_alt_light from '/images/Wallet_alt_light.svg';
+import Subttasks_light from '/images/Subttasks_light.svg';
+import Line_up_light from '/images/Line_up_light.svg';
+import Group_light from '/images/Group_light.svg';
+import suitcase_light from '/images/suitcase_light.svg';
 
 function AdminSidebar() {
   const navigate = useNavigate();

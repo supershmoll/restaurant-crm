@@ -6,12 +6,10 @@ export const Route = createFileRoute('/employee')({
   beforeLoad: () => {
     const user = getUser();
 
-    // Not logged in → go to login page
     if (!user) {
       throw redirect({ to: '/login' });
     }
 
-    // Admin/moderator trying to reach employee area → send to admin dashboard
     if (isAdminOrModerator(user)) {
       throw redirect({ to: '/admin/analytics' });
     }

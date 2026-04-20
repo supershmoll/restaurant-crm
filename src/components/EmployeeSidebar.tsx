@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { clearAuth } from "@/features/auth/authUtils";
-import drink_light from "../assets/images/drink_light.svg";
-import Desk_alt_light from "../assets/images/Desk_alt_light.svg";
-import pie_chart_light from "../assets/images/pie_chart_light.svg";
+import drink_light from "/images/drink_light.svg";
+import Desk_alt_light from "/images/Desk_alt_light.svg";
+import pie_chart_light from "/images/pie_chart_light.svg";
 function EmployeeSidebar() {
   const navigate = useNavigate();
 

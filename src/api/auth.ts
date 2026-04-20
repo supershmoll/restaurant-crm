@@ -14,6 +14,7 @@ interface LoginResponse {
   refreshToken: string;
 }
 
+
 export const loginUser = async (credentials: LoginCredentials): Promise<User> => {
   try {
     const { data: loginData } = await api.post<LoginResponse>('/auth/login', {

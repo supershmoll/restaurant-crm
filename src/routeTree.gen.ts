@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegistrationRouteImport } from './routes/registration'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -24,11 +23,6 @@ import { Route as AdminPayrollRouteImport } from './routes/admin/payroll'
 import { Route as AdminEmployeesRouteImport } from './routes/admin/employees'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
 
-const RegistrationRoute = RegistrationRouteImport.update({
-  id: '/registration',
-  path: '/registration',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -100,7 +94,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/login': typeof LoginRoute
-  '/registration': typeof RegistrationRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/employees': typeof AdminEmployeesRoute
   '/admin/payroll': typeof AdminPayrollRoute
@@ -116,7 +109,6 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/login': typeof LoginRoute
-  '/registration': typeof RegistrationRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/employees': typeof AdminEmployeesRoute
   '/admin/payroll': typeof AdminPayrollRoute
@@ -133,7 +125,6 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/login': typeof LoginRoute
-  '/registration': typeof RegistrationRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/employees': typeof AdminEmployeesRoute
   '/admin/payroll': typeof AdminPayrollRoute
@@ -151,7 +142,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/employee'
     | '/login'
-    | '/registration'
     | '/admin/analytics'
     | '/admin/employees'
     | '/admin/payroll'
@@ -167,7 +157,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/employee'
     | '/login'
-    | '/registration'
     | '/admin/analytics'
     | '/admin/employees'
     | '/admin/payroll'
@@ -183,7 +172,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/employee'
     | '/login'
-    | '/registration'
     | '/admin/analytics'
     | '/admin/employees'
     | '/admin/payroll'
@@ -200,18 +188,10 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   EmployeeRoute: typeof EmployeeRouteWithChildren
   LoginRoute: typeof LoginRoute
-  RegistrationRoute: typeof RegistrationRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/registration': {
-      id: '/registration'
-      path: '/registration'
-      fullPath: '/registration'
-      preLoaderRoute: typeof RegistrationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -347,7 +327,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   EmployeeRoute: EmployeeRouteWithChildren,
   LoginRoute: LoginRoute,
-  RegistrationRoute: RegistrationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
