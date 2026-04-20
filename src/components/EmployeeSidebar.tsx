@@ -6,6 +6,20 @@ import pie_chart_light from "../assets/images/pie_chart_light.svg";
 function EmployeeSidebar() {
   const navigate = useNavigate();
 
+  const navLinks = [
+    { to: "/employee/tables", label: "Tables", icon: drink_light, alt: "Drink" },
+    { to: "/employee/orders", label: "Orders", icon: Desk_alt_light, alt: "Desk" },
+    {
+      to: "/employee/statistics",
+      label: "Statistics",
+      icon: pie_chart_light,
+      alt: "Pie",
+    },
+  ] as const;
+
+  const navLinkClassName =
+    "p-4 rounded-lg bg-dark-button hover:bg-background-primary w-full text-start p-4 flex items-start gap-2 text-white";
+
   const handleLogout = () => {
     clearAuth();
     navigate({ to: '/login' });
@@ -16,27 +30,12 @@ function EmployeeSidebar() {
             <h2 className="font-bebas text-2xl text-center text-white">Restaurant CRM</h2>
             <hr className="border-0.25 border-border-color" />
             <nav className="flex flex-col gap-2 justify-center items-center border-box">
-              <Link
-                to="/employee/tables"
-                className="p-4 rounded-lg bg-dark-button hover:bg-background-primary w-full text-start p-4 flex items-start gap-2 text-white"
-              >
-                <img src={drink_light} alt="Drink" className="w-6 h-6" />
-                Tables
-              </Link>
-              <Link
-                to="/employee/orders"
-                className="p-4 rounded-lg bg-dark-button hover:bg-background-primary w-full text-start p-4 flex items-start gap-2 text-white"
-              >
-                <img src={Desk_alt_light} alt="Desk" className="w-6 h-6" />
-                Orders
-              </Link>
-              <Link
-                to="/employee/statistics"
-                className="p-4 rounded-lg bg-dark-button hover:bg-background-primary w-full text-start p-4 flex items-start gap-2 text-white"
-              >
-                <img src={pie_chart_light} alt="Pie" className="w-6 h-6" />
-                Statistics
-              </Link>
+              {navLinks.map((item) => (
+                <Link key={item.to} to={item.to} className={navLinkClassName}>
+                  <img src={item.icon} alt={item.alt} className="w-6 h-6" />
+                  {item.label}
+                </Link>
+              ))}
             </nav>
 
             <button

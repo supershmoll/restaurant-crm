@@ -16,60 +16,29 @@ function AdminSidebar() {
     navigate({ to: '/login' });
   };
 
+  const navLinks = [
+    { to: "/", label: "Home", icon: Home_light, alt: "Home" },
+    { to: "/admin/shift", label: "Shift", icon: Calendar_light, alt: "Calendar" },
+    { to: "/admin/payroll", label: "Payroll", icon: Wallet_alt_light, alt: "Payroll" },
+    { to: "/admin/tasks", label: "Tasks", icon: Subttasks_light, alt: "Tasks" },
+    { to: "/admin/analytics", label: "Analytics", icon: Line_up_light, alt: "Analytics" },
+    { to: "/admin/employees", label: "Employees", icon: Group_light, alt: "Employees" },
+    { to: "/admin/vacation", label: "Vacation", icon: suitcase_light, alt: "Vacation" },
+  ] as const;
+
+  const navLinkClassName = "p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
+
   return (
     <aside className="w-65 h-screen bg-background-secondary p-6 flex flex-col gap-6">
       <h2 className="font-bebas text-2xl text-center">Restaurant CRM</h2>
       <hr className="border-0.25 border-border-color" />
       <nav className="flex flex-col gap-2 justify-center items-center border-box">
-        <Link
-          to="/"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={Home_light} alt="Home" className="w-6 h-6" />
-          Home
-        </Link>
-        <Link
-          to="/admin/shift"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={Calendar_light} alt="Calendar" className="w-6 h-6" />
-          Shift
-        </Link>
-        <Link
-          to="/admin/payroll"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={Wallet_alt_light} alt="Payroll" className="w-6 h-6" />
-          Payroll
-        </Link>
-        <Link
-          to="/admin/tasks"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={Subttasks_light} alt="Tasks" className="w-6 h-6" />
-          Tasks
-        </Link>
-        <Link
-          to="/admin/analytics"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={Line_up_light} alt="Analytics" className="w-6 h-6" />
-          Analytics
-        </Link>
-        <Link
-          to="/admin/employees"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={Group_light} alt="Employees" className="w-6 h-6" />
-          Employees
-        </Link>
-        <Link
-          to="/admin/vacation"
-          className="p-4 rounded-lg bg-background hover:bg-background-primary w-full text-start p-4 flex items-start gap-2"
-        >
-          <img src={suitcase_light} alt="Vacation" className="w-6 h-6" />
-          Vacation
-        </Link>
+        {navLinks.map((item) => (
+          <Link key={item.to} to={item.to} className={navLinkClassName}>
+            <img src={item.icon} alt={item.alt} className="w-6 h-6" />
+            {item.label}
+          </Link>
+        ))}
       </nav>
 
       <button
