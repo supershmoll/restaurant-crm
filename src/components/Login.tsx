@@ -3,6 +3,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { useLogin } from '@/features/auth/useLogin';
 import { saveAuth } from '@/features/auth/authUtils';
+import { UserRole } from '@/types/auth';
 
 export function Login() {
 
@@ -23,7 +24,7 @@ export function Login() {
         onSuccess: (data) => {
 
           saveAuth(data.token, data, rememberMe);
-          const isAdmin = data.role === 'admin' || data.role === 'moderator';
+          const isAdmin = data.role === UserRole.Admin || data.role === UserRole.Moderator;
           navigate({ to: isAdmin ? '/admin/analytics' : '/employee/tables' });
         },
       }

@@ -4,7 +4,13 @@ export interface LoginCredentials {
     expiresInMins?: number;
   }
   
-  export type UserRole = 'admin' | 'moderator' | 'user';
+export const UserRole = {
+  Admin: 'admin',
+  Moderator: 'moderator',
+  User: 'user',
+} as const;
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole];
 
 export interface User {
     id: number;

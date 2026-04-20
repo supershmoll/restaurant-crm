@@ -1,4 +1,4 @@
-import type { User } from '@/types/auth';
+import { UserRole, type User } from '@/types/auth';
 
 
 export const getUser = (): User | null => {
@@ -28,4 +28,4 @@ export const clearAuth = (): void => {
 
 
 export const isAdminOrModerator = (user: User | null): boolean =>
-  user?.role === 'admin' || user?.role === 'moderator';
+  user?.role === UserRole.Admin || user?.role === UserRole.Moderator;
