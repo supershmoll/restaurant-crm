@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import EmployeeSidebar from '@/components/EmployeeSidebar';
+import AppHeader from "@/components/AppHeader";
 import { getUser, isAdminOrModerator } from '@/features/auth/authUtils';
 
 export const Route = createFileRoute('/employee')({
@@ -22,6 +23,7 @@ function EmployeeLayout() {
     <div className="flex h-screen overflow-hidden">
       <EmployeeSidebar />
       <main className="flex-1 overflow-auto px-4 pt-4 pb-[calc(16px+64px+env(safe-area-inset-bottom))] md:p-6">
+        <AppHeader />
         <Outlet />
       </main>
     </div>
