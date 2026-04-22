@@ -1,26 +1,44 @@
-import { useQuery } from '@tanstack/react-query';
-
-type User = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  birthDate: string;
-  image: string;
-};
+import { useMemo, useState } from "react";
+import MySearch from "@/components/MySearch";
+import { type Employee, useEmployeesQuery } from "@/features/employees/useEmployeesQuery";
 
 function EmployeesTable() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['user', 1],
-    queryFn: () =>
-      fetch('https://dummyjson.com/users?limit=10').then((res) => res.json()),
-  });
+  const [query, setQuery] = useState("");
+  const { data, isLoading, error } = useEmployeesQuery();
+
+  const users = (data?.users ?? []) as Employee[];
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const filteredUsers = useMemo(() => {
+    if (!normalizedQuery) return users;
+
+    return users.filter((u) => {
+      const haystack = `${u.firstName} ${u.lastName} ${u.email}`.toLowerCase();
+      return haystack.includes(normalizedQuery);
+    });
+  }, [normalizedQuery, users]);
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
+  if (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return <div>An error occurred: {message}</div>;
+  }
 
   return (
     <div className="flex flex-col items-center w-full px-4 py-10 lg:px-8 lg:py-20">
+      <div className="w-full max-w-5xl mb-4 flex items-center justify-between gap-3">
+        <div className="w-full max-w-sm">
+          <MySearch
+            placeholder="Search employees…"
+            delayMs={300}
+            onSearch={(value) => setQuery(value)}
+          />
+        </div>
+        <div className="text-sm text-text opacity-60 whitespace-nowrap">
+          {filteredUsers.length} / {users.length}
+        </div>
+      </div>
+
       <div className="w-full max-w-5xl rounded-2xl overflow-x-auto shadow-sm border-none">
         <table className="w-full min-w-200 font-sans text-left border-collapse bg-background">
           <thead className="sr-only">
@@ -35,15 +53,22 @@ function EmployeesTable() {
           </thead>
 
           <tbody>
-            {data.users.map((user: User) => {
+            {filteredUsers.length === 0 ? (
+              <tr>
+                <td className="py-10 px-6 text-center text-text opacity-60" colSpan={6}>
+                  No employees match “{query.trim() || "—"}”.
+                </td>
+              </tr>
+            ) : (
+              filteredUsers.map((user: Employee) => {
               const isGroupA = user.id % 2 !== 0;
 
               const formattedDate = new Date(user.birthDate).toLocaleDateString(
-                'en-US',
+                "en-US",
                 {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
                 }
               );
 
@@ -80,10 +105,10 @@ function EmployeesTable() {
                   <td className="py-4 px-4">
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white ${
-                        isGroupA ? 'bg-[#f5b85a]' : 'bg-[#9dbdf5]'
+                        isGroupA ? "bg-[#f5b85a]" : "bg-[#9dbdf5]"
                       }`}
                     >
-                      {isGroupA ? 'A' : 'B'}
+                      {isGroupA ? "A" : "B"}
                     </div>
                   </td>
 
@@ -102,7 +127,8 @@ function EmployeesTable() {
                   </td>
                 </tr>
               );
-            })}
+            })
+            )}
           </tbody>
         </table>
       </div>
