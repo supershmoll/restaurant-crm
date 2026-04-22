@@ -6,12 +6,12 @@ export const Route = createFileRoute('/admin')({
   beforeLoad: () => {
     const user = getUser();
 
-    // Not logged in at all → go to login page
+
     if (!user) {
       throw redirect({ to: '/login' });
     }
 
-    // Logged in but NOT admin/moderator → send to employee area
+
     if (!isAdminOrModerator(user)) {
       throw redirect({ to: '/employee/tables' });
     }
@@ -23,7 +23,7 @@ function AdminLayout() {
   return (
     <div className="flex h-screen overflow-hidden">
       <AdminSidebar />
-      <main className="flex-1 overflow-auto p-6">
+      <main className="flex-1 overflow-auto px-4 pt-4 pb-[calc(16px+64px+env(safe-area-inset-bottom))] md:p-6">
         <Outlet />
       </main>
     </div>

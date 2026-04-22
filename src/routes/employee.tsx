@@ -21,7 +21,7 @@ function EmployeeLayout() {
   return (
     <div className="flex h-screen overflow-hidden">
       <EmployeeSidebar />
-      <main className="flex-1 overflow-auto p-6">
+      <main className="flex-1 overflow-auto px-4 pt-4 pb-[calc(16px+64px+env(safe-area-inset-bottom))] md:p-6">
         <Outlet />
       </main>
     </div>
