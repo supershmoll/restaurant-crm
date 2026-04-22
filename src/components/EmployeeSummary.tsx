@@ -13,8 +13,8 @@ function EmployeeSummary() {
       <div className="w-full">
         <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           <StatCard title="All Employees" value={users.length} />
-          <StatCard title="On Shift" value={admins} />
-          <StatCard title="Idle" value={moderators} />
+          <StatCard title="Admins" value={admins} />
+          <StatCard title="Moderators" value={moderators} />
         </div>
       </div>
     </div>

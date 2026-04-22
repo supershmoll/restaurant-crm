@@ -1,22 +1,76 @@
 import { useMemo, useState } from "react";
 import MySearch from "@/components/MySearch";
+import FiltersPopover from "@/components/filters/FiltersPopover";
+import FilterMultiSelect from "@/components/filters/FilterMultiSelect";
 import { type Employee, useEmployeesQuery } from "@/features/employees/useEmployeesQuery";
+
+type RoleFilterValue = "all" | string;
+type StatusFilterValue = "all" | "A" | "B";
+
+function employeeStatus(employee: Employee): "A" | "B" {
+  return employee.id % 2 !== 0 ? "A" : "B";
+}
 
 function EmployeesTable() {
   const [query, setQuery] = useState("");
+  const [roleFilter, setRoleFilter] = useState<RoleFilterValue>("all");
+  const [statusFilter, setStatusFilter] = useState<StatusFilterValue>("all");
   const { data, isLoading, error } = useEmployeesQuery();
 
   const users = (data?.users ?? []) as Employee[];
   const normalizedQuery = query.trim().toLowerCase();
 
-  const filteredUsers = useMemo(() => {
-    if (!normalizedQuery) return users;
+  const roleOptions = useMemo(() => {
+    const roles = new Set<string>();
+    for (const u of users) {
+      const r = (u.role ?? "").toString().trim().toLowerCase();
+      if (r) roles.add(r);
+    }
 
-    return users.filter((u) => {
-      const haystack = `${u.firstName} ${u.lastName} ${u.email}`.toLowerCase();
+    const base: { label: string; value: RoleFilterValue }[] = [{ label: "All roles", value: "all" }];
+
+    const known = ["admin", "moderator", "employee"] as const;
+    for (const v of known) {
+      if (roles.has(v)) base.push({ label: v[0].toUpperCase() + v.slice(1), value: v });
+      roles.delete(v);
+    }
+
+    const rest = Array.from(roles).sort((a, b) => a.localeCompare(b));
+    for (const v of rest) {
+      base.push({ label: v[0].toUpperCase() + v.slice(1), value: v });
+    }
+
+    return base;
+  }, [users]);
+
+  const statusOptions = useMemo(
+    () =>
+      [
+        { label: "All statuses", value: "all" },
+        { label: "A", value: "A" },
+        { label: "B", value: "B" },
+      ] as const,
+    []
+  );
+
+  const filteredUsers = useMemo(() => {
+    let list = users;
+
+    if (roleFilter !== "all") {
+      list = list.filter((u) => (u.role ?? "").toString().trim().toLowerCase() === roleFilter);
+    }
+
+    if (statusFilter !== "all") {
+      list = list.filter((u) => employeeStatus(u) === statusFilter);
+    }
+
+    if (!normalizedQuery) return list;
+
+    return list.filter((u) => {
+      const haystack = `${u.firstName} ${u.lastName} ${u.email} ${u.role ?? ""}`.toLowerCase();
       return haystack.includes(normalizedQuery);
     });
-  }, [normalizedQuery, users]);
+  }, [normalizedQuery, roleFilter, statusFilter, users]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) {
@@ -26,20 +80,59 @@ function EmployeesTable() {
 
   return (
     <div className="flex flex-col items-center w-full px-4 py-10 lg:px-8 lg:py-20">
-      <div className="w-full max-w-5xl mb-4 flex items-center justify-between gap-3">
-        <div className="w-full max-w-sm">
-          <MySearch
-            placeholder="Search employees…"
-            delayMs={300}
-            onSearch={(value) => setQuery(value)}
-          />
+      <div className="w-full mb-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <FiltersPopover>
+            <div className="space-y-4">
+              <FilterMultiSelect
+                filters={[
+                  {
+                    id: "role",
+                    label: "Role",
+                    value: roleFilter,
+                    options: roleOptions,
+                    onChange: setRoleFilter,
+                  },
+                  {
+                    id: "status",
+                    label: "Status",
+                    value: statusFilter,
+                    options: statusOptions,
+                    onChange: setStatusFilter,
+                  },
+                ]}
+              />
+
+              <div className="flex items-center justify-end">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRoleFilter("all");
+                    setStatusFilter("all");
+                  }}
+                  className="rounded-xl bg-[#F6F6F6] px-4 py-2 text-sm font-semibold text-text ring-1 ring-black/5 transition hover:bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+                >
+                  Clear filters
+                </button>
+              </div>
+            </div>
+          </FiltersPopover>
+
+          <div className="w-full max-w-sm">
+            <MySearch
+              placeholder="Search employees…"
+              delayMs={300}
+              onSearch={(value) => setQuery(value)}
+            />
+          </div>
         </div>
+
         <div className="text-sm text-text opacity-60 whitespace-nowrap">
           {filteredUsers.length} / {users.length}
         </div>
       </div>
 
-      <div className="w-full max-w-5xl rounded-2xl overflow-x-auto shadow-sm border-none">
+      <div className="w-full rounded-2xl overflow-x-auto shadow-sm border-none">
         <table className="w-full min-w-200 font-sans text-left border-collapse bg-background">
           <thead className="sr-only">
             <tr>
