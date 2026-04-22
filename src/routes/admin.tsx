@@ -23,7 +23,7 @@ function AdminLayout() {
   return (
     <div className="flex h-screen overflow-hidden">
       <AdminSidebar />
-      <main className="flex-1 overflow-auto p-4 pb-24 md:p-6">
+      <main className="flex-1 overflow-auto px-4 pt-4 pb-[calc(16px+64px+env(safe-area-inset-bottom))] md:p-6">
         <Outlet />
       </main>
     </div>

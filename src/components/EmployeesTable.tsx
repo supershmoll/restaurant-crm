@@ -127,9 +127,6 @@ function EmployeesTable() {
           </div>
         </div>
 
-        <div className="text-sm text-text opacity-60 whitespace-nowrap">
-          {filteredUsers.length} / {users.length}
-        </div>
       </div>
 
       <div className="w-full rounded-2xl overflow-x-auto shadow-sm border-none">

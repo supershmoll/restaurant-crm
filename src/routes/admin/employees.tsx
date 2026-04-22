@@ -7,7 +7,7 @@ export const Route = createFileRoute('/admin/employees')({
 });
 
 function RouteComponent() {
-  return (<div className="p-6">
+  return (<div>
     <EmployeeSummary />
     <EmployeesTable />
   </div>
