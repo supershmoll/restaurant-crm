@@ -7,7 +7,7 @@ export default function OrdersDiscoveryPage() {
 
   return (
     <section className="mx-auto w-full max-w-[1280px]">
-      <div className="overflow-hidden rounded-[30px] border border-black/8 bg-white shadow-[0_28px_70px_rgba(20,20,20,0.08)]">
+      <div className="overflow-hidden rounded-[30px] border border-text/8 bg-background shadow-[0_28px_70px_var(--shadow-color-floating)]">
         <div className="grid min-h-[720px] grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)]">
           <OrdersSidebar
             serviceMode={discovery.serviceMode}

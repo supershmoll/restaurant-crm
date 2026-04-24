@@ -21,13 +21,13 @@ export default function TableListItem({ id, label, status, reservedTime, onSelec
       type="button"
       onClick={handleClick}
       className={[
-        "flex w-full items-center gap-3 rounded-2xl border border-border-color/60 px-4 py-3 text-left shadow-[0_1px_0_rgba(0,0,0,0.02)] transition-transform active:scale-[0.99]",
+        "flex w-full items-center gap-3 rounded-2xl border border-border-color/60 px-4 py-3 text-left shadow-[0_1px_0_var(--shadow-color-table)] transition-transform active:scale-[0.99]",
         statusMeta.surfaceClassName,
         className ?? "",
       ].join(" ")}
     >
       <div className="flex min-w-0 flex-1 items-center gap-3">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/70 text-sm font-semibold text-text ring-1 ring-black/5">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-background/70 text-sm font-semibold text-text ring-1 ring-text/5">
           {label}
         </div>
 

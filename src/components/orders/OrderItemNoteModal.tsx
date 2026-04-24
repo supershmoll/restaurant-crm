@@ -67,7 +67,7 @@ export default function OrderItemNoteModal({
 
   return (
     <div className="fixed inset-0 z-[70]">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-scrim backdrop-blur-[1px]" />
 
       <div className="absolute inset-0 flex items-end justify-center p-4 sm:items-center">
         <div
@@ -75,10 +75,10 @@ export default function OrderItemNoteModal({
           role="dialog"
           aria-modal="true"
           aria-labelledby="order-item-note-title"
-          className="w-full max-w-lg rounded-2xl bg-white shadow-xl ring-1 ring-black/10"
+          className="w-full max-w-lg rounded-2xl bg-background shadow-xl ring-1 ring-text/10"
         >
           <form onSubmit={handleSubmit}>
-            <div className="border-b border-black/10 px-4 py-3 sm:px-6">
+            <div className="border-b border-text/10 px-4 py-3 sm:px-6">
               <h2 id="order-item-note-title" className="text-base font-semibold text-text sm:text-lg">
                 Note for {itemName}
               </h2>
@@ -92,14 +92,14 @@ export default function OrderItemNoteModal({
                 onChange={handleNoteChange}
                 rows={5}
                 placeholder="e.g. no onions, extra spicy, serve later"
-                className="w-full rounded-2xl bg-white px-4 py-3 text-sm text-text ring-1 ring-black/10 outline-none transition focus-visible:ring-2 focus-visible:ring-black/15"
+                className="w-full rounded-2xl bg-background px-4 py-3 text-sm text-text ring-1 ring-text/10 outline-none transition focus-visible:ring-2 focus-visible:ring-text/15"
               />
 
               <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-                <Button type="button" variant="outline" onClick={handleClear} className="h-10 rounded-xl border-black/10 px-4 text-text">
+                <Button type="button" variant="outline" onClick={handleClear} className="h-10 rounded-xl border-text/10 px-4 text-text">
                   Clear note
                 </Button>
-                <Button type="button" variant="outline" onClick={onClose} className="h-10 rounded-xl border-black/10 px-4 text-text">
+                <Button type="button" variant="outline" onClick={onClose} className="h-10 rounded-xl border-text/10 px-4 text-text">
                   Cancel
                 </Button>
                 <Button type="submit" className="h-10 rounded-xl bg-dark-button px-4 text-white hover:bg-dark-button/90">

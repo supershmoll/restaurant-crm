@@ -37,7 +37,7 @@ export default function TableOrderItemRow({
   }
 
   return (
-    <tr className="border-t border-black/4 bg-white">
+    <tr className="border-t border-text/4 bg-background">
       <td className="w-12 px-4 py-4 align-middle">
         <input type="checkbox" className="h-4 w-4 rounded border-border-color accent-dark-button" aria-label={`Select ${item.name}`} />
       </td>
@@ -47,7 +47,7 @@ export default function TableOrderItemRow({
           <img
             src={item.image}
             alt={item.name}
-            className="h-12 w-12 rounded-full object-cover bg-gray-100 ring-1 ring-black/10"
+            className="h-12 w-12 rounded-full object-cover bg-muted ring-1 ring-text/10"
           />
           <div className="min-w-0">
             <div className="text-sm font-medium text-text sm:text-base">{item.name}</div>
@@ -71,7 +71,7 @@ export default function TableOrderItemRow({
             size="icon-xs"
             variant="ghost"
             onClick={handleEditNote}
-            className="rounded-full border border-black/10 bg-white text-text/65 hover:bg-[#F5F5F5]"
+            className="rounded-full border border-text/10 bg-background text-text/65 hover:bg-surface-soft"
             aria-label={`Comments for ${item.name}`}
           >
             <MessageSquareMore className={["h-3.5 w-3.5", item.note ? "fill-current text-text" : ""].join(" ")} />
@@ -82,7 +82,7 @@ export default function TableOrderItemRow({
             size="icon-xs"
             variant="ghost"
             onClick={handleRemove}
-            className="rounded-full border border-black/10 bg-white text-text/65 hover:bg-[#F5F5F5]"
+            className="rounded-full border border-text/10 bg-background text-text/65 hover:bg-surface-soft"
             aria-label={`Remove ${item.name}`}
           >
             <X className="h-3.5 w-3.5" />

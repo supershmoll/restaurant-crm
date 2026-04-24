@@ -51,7 +51,7 @@ export default function AddDishModal({ open, initialCategory, onClose, onAddDish
 
   return (
     <div className="fixed inset-0 z-[70]">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-scrim backdrop-blur-[1px]" />
 
       <div className="absolute inset-0 flex items-end justify-center p-4 sm:items-center">
         <div
@@ -59,9 +59,9 @@ export default function AddDishModal({ open, initialCategory, onClose, onAddDish
           role="dialog"
           aria-modal="true"
           aria-labelledby="add-dish-title"
-          className="w-full max-w-3xl rounded-2xl bg-white shadow-xl ring-1 ring-black/10"
+          className="w-full max-w-3xl rounded-2xl bg-background shadow-xl ring-1 ring-text/10"
         >
-          <div className="border-b border-black/10 px-4 py-3 sm:px-6">
+          <div className="border-b border-text/10 px-4 py-3 sm:px-6">
             <h2 id="add-dish-title" className="text-base font-semibold text-text sm:text-lg">
               Add dish
             </h2>
@@ -78,7 +78,7 @@ export default function AddDishModal({ open, initialCategory, onClose, onAddDish
                   onClick={createCategorySelectionHandler(category)}
                   className={[
                     "rounded-full px-4 text-text",
-                    category === selectedCategory ? "bg-dark-button text-white hover:bg-dark-button/90" : "border-black/10",
+                    category === selectedCategory ? "bg-dark-button text-white hover:bg-dark-button/90" : "border-text/10",
                   ].join(" ")}
                 >
                   {category}
@@ -91,7 +91,7 @@ export default function AddDishModal({ open, initialCategory, onClose, onAddDish
             </div>
 
             <div className="flex justify-end">
-              <Button type="button" variant="outline" onClick={onClose} className="h-10 rounded-xl border-black/10 px-4 text-text">
+              <Button type="button" variant="outline" onClick={onClose} className="h-10 rounded-xl border-text/10 px-4 text-text">
                 Close
               </Button>
             </div>
@@ -103,8 +103,8 @@ export default function AddDishModal({ open, initialCategory, onClose, onAddDish
 
   function renderDishCard(dish: MenuDish) {
     return (
-      <div key={dish.id} className="flex items-center gap-3 rounded-2xl border border-black/8 bg-[#FCFCFC] p-3">
-        <img src={dish.image} alt={dish.name} className="h-14 w-14 rounded-2xl object-cover bg-gray-100 ring-1 ring-black/8" />
+      <div key={dish.id} className="flex items-center gap-3 rounded-2xl border border-text/8 bg-surface-panel p-3">
+        <img src={dish.image} alt={dish.name} className="h-14 w-14 rounded-2xl object-cover bg-muted ring-1 ring-text/8" />
 
         <div className="min-w-0 flex-1">
           <div className="truncate text-sm font-semibold text-text">{dish.name}</div>

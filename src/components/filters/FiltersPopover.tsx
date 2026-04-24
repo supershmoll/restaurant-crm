@@ -51,7 +51,7 @@ export default function FiltersPopover({
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "inline-flex h-10 items-center gap-2 rounded-xl bg-[#F6F6F6] px-4 text-sm font-medium text-text ring-1 ring-black/5 transition hover:bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15",
+          "inline-flex h-10 items-center gap-2 rounded-xl bg-surface-muted px-4 text-sm font-medium text-text ring-1 ring-text/5 transition hover:bg-surface-muted-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15",
           buttonClassName
         )}
       >
@@ -61,7 +61,7 @@ export default function FiltersPopover({
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-black/60"
+          className="text-text/60"
         >
           <path
             d="M3 5h18l-7 8v5l-4 2v-7L3 5z"
@@ -79,7 +79,7 @@ export default function FiltersPopover({
           role="dialog"
           aria-label={`${label} panel`}
           className={cn(
-            "absolute top-12 right-0 z-50 w-[min(20rem,calc(100vw-3rem))] rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/10",
+            "absolute top-12 right-0 z-50 w-[min(20rem,calc(100vw-3rem))] rounded-2xl bg-background p-4 shadow-lg ring-1 ring-text/10",
             panelClassName
           )}
         >

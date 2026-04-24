@@ -50,7 +50,7 @@ export function Login() {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {loginMutation.isError && (
-            <div className="rounded-lg bg-red-500/10 p-2 text-center text-sm text-red-500">
+            <div className="rounded-lg bg-destructive/10 p-2 text-center text-sm text-destructive">
               Invalid username or password
             </div>
           )}

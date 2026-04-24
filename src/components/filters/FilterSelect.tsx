@@ -25,7 +25,7 @@ export default function FilterSelect<TValue extends string>({
         aria-label={label}
         value={value}
         onChange={(e) => onChange(e.target.value as TValue)}
-        className="h-10 w-full rounded-xl bg-[#F6F6F6] px-4 text-sm font-medium text-text ring-1 ring-black/5 focus:outline-none focus:ring-2 focus:ring-black/15"
+        className="h-10 w-full rounded-xl bg-surface-muted px-4 text-sm font-medium text-text ring-1 ring-text/5 focus:outline-none focus:ring-2 focus:ring-text/15"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>

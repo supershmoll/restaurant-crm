@@ -59,14 +59,14 @@ export default function AppHeader({ title }: AppHeaderProps) {
           <button
             type="button"
             onClick={openChat}
-            className="grid h-10 w-10 place-items-center rounded-full bg-background-secondary ring-1 ring-black/5 hover:bg-background-primary"
+            className="grid h-10 w-10 place-items-center rounded-full bg-background-secondary ring-1 ring-text/5 hover:bg-background-primary"
             aria-label="Open live chat"
           >
             <img src="/Bell_pin_light.svg" alt="" className="h-5 w-5" />
           </button>
 
           <div className="flex items-center gap-2">
-            <div className="grid h-10 w-10 place-items-center rounded-full bg-background-secondary ring-1 ring-black/5">
+            <div className="grid h-10 w-10 place-items-center rounded-full bg-background-secondary ring-1 ring-text/5">
               <img src="/User_light.svg" alt="" className="h-5 w-5" />
             </div>
 

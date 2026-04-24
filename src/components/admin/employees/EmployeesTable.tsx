@@ -7,6 +7,12 @@ import { type Employee, useEmployeesQuery } from "@/features/employees/useEmploy
 type RoleFilterValue = "all" | string;
 type StatusFilterValue = "all" | "A" | "B";
 
+const STATUS_OPTIONS = [
+  { label: "All statuses", value: "all" },
+  { label: "A", value: "A" },
+  { label: "B", value: "B" },
+] as const;
+
 function employeeStatus(employee: Employee): "A" | "B" {
   return employee.id % 2 !== 0 ? "A" : "B";
 }
@@ -20,7 +26,7 @@ function EmployeesTable() {
   const users = (data?.users ?? []) as Employee[];
   const normalizedQuery = query.trim().toLowerCase();
 
-  const roleOptions = useMemo(() => {
+  const roleOptions = (() => {
     const roles = new Set<string>();
     for (const u of users) {
       const r = (u.role ?? "").toString().trim().toLowerCase();
@@ -41,17 +47,7 @@ function EmployeesTable() {
     }
 
     return base;
-  }, [users]);
-
-  const statusOptions = useMemo(
-    () =>
-      [
-        { label: "All statuses", value: "all" },
-        { label: "A", value: "A" },
-        { label: "B", value: "B" },
-      ] as const,
-    []
-  );
+  })();
 
   const filteredUsers = useMemo(() => {
     let list = users;
@@ -97,7 +93,7 @@ function EmployeesTable() {
                     id: "status",
                     label: "Status",
                     value: statusFilter,
-                    options: statusOptions,
+                    options: STATUS_OPTIONS,
                     onChange: setStatusFilter,
                   },
                 ]}
@@ -110,7 +106,7 @@ function EmployeesTable() {
                     setRoleFilter("all");
                     setStatusFilter("all");
                   }}
-                  className="rounded-xl bg-[#F6F6F6] px-4 py-2 text-sm font-semibold text-text ring-1 ring-black/5 transition hover:bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+                  className="rounded-xl bg-surface-muted px-4 py-2 text-sm font-semibold text-text ring-1 ring-text/5 transition hover:bg-surface-muted-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15"
                 >
                   Clear filters
                 </button>
@@ -157,7 +153,7 @@ function EmployeesTable() {
                 return (
                   <tr
                     key={user.id}
-                    className="even:bg-background-secondary odd:bg-background transition-colors hover:bg-gray-50"
+                    className="even:bg-background-secondary odd:bg-background transition-colors hover:bg-surface-section"
                   >
                     <td className="w-12 py-4 pl-6 pr-2">
                       <input
@@ -169,7 +165,7 @@ function EmployeesTable() {
                     <td className="min-w-62.5 px-4 py-4">
                       <div className="flex items-center gap-4">
                         <img
-                          className="h-11 w-11 flex-none rounded-full border border-gray-200 bg-gray-100 object-cover"
+                          className="h-11 w-11 flex-none rounded-full border border-border bg-muted object-cover"
                           src={user.image}
                           alt={`${user.firstName}'s profile`}
                         />
@@ -187,7 +183,7 @@ function EmployeesTable() {
                     <td className="px-4 py-4">
                       <div
                         className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white ${
-                          isGroupA ? "bg-[#f5b85a]" : "bg-[#9dbdf5]"
+                          isGroupA ? "bg-group-a" : "bg-group-b"
                         }`}
                       >
                         {isGroupA ? "A" : "B"}
@@ -199,7 +195,7 @@ function EmployeesTable() {
                     <td className="px-4 py-4 text-sm font-normal text-text md:text-base">Jan 11, 2023</td>
 
                     <td className="py-4 pr-6 pl-4 text-right">
-                      <button className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-light-button font-medium text-dark-button transition-colors hover:bg-gray-200">
+                      <button className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-light-button font-medium text-dark-button transition-colors hover:bg-border">
                         +
                       </button>
                     </td>

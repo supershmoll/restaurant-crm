@@ -114,7 +114,7 @@ export default function TablesOverviewPage() {
         ))}
       </div>
 
-      <section className="rounded-[28px] border border-black/5 bg-[#FCFCFC] p-4 sm:p-5 lg:px-7 lg:py-6">
+      <section className="rounded-[28px] border border-text/5 bg-surface-panel p-4 sm:p-5 lg:px-7 lg:py-6">
         <div className="flex flex-col gap-3 lg:hidden">
           {tables.map((table) => (
             <TableListItem

@@ -14,8 +14,8 @@ export default function RestaurantCard({ restaurant, active = false, onSelect }:
       type="button"
       onClick={() => onSelect(restaurant.id)}
       className={cn(
-        "w-full rounded-[22px] border bg-white p-3 text-left shadow-[0_14px_30px_rgba(20,20,20,0.05)] transition",
-        active ? "border-[#F26D5B]/35" : "border-black/5 hover:border-black/10"
+        "w-full rounded-[22px] border bg-background p-3 text-left shadow-[0_14px_30px_var(--shadow-color-card)] transition",
+        active ? "border-brand-primary/35" : "border-text/5 hover:border-text/10"
       )}
     >
       <div className="mb-3 grid grid-cols-4 gap-2">
@@ -27,21 +27,21 @@ export default function RestaurantCard({ restaurant, active = false, onSelect }:
       <div className="flex items-start justify-between gap-3">
         <div>
           <div className="text-[22px] font-semibold leading-tight text-text">{restaurant.name}</div>
-          <div className="mt-2 text-sm text-black/42">
+          <div className="mt-2 text-sm text-text/42">
             {restaurant.city} • {restaurant.cuisines.join(" • ")} • {restaurant.price}
           </div>
         </div>
 
-        <div className="pt-1 text-sm font-medium text-black/35">{restaurant.distanceLabel}</div>
+        <div className="pt-1 text-sm font-medium text-text/35">{restaurant.distanceLabel}</div>
       </div>
 
       <div className="mt-3 flex items-center justify-between text-sm">
-        <span className="rounded-full bg-[#FDF1EF] px-3 py-1.5 font-medium text-[#D05F50]">
+        <span className="rounded-full bg-badge-service px-3 py-1.5 font-medium text-badge-service-foreground">
           {restaurant.service.join(" / ")}
         </span>
 
-        <span className="inline-flex items-center gap-1 text-black/55">
-          <Star className="h-3.5 w-3.5 fill-current text-[#F3B24F]" />
+        <span className="inline-flex items-center gap-1 text-text/55">
+          <Star className="h-3.5 w-3.5 fill-current text-rating-star" />
           {restaurant.rating.toFixed(1)}
         </span>
       </div>

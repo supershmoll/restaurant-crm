@@ -30,7 +30,7 @@ export default function TableOrderDetailsPage({ table }: TableOrderDetailsPagePr
         <div className="flex items-start gap-4">
           <Link
             to="/employee/tables"
-            className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-text/70 ring-1 ring-black/5 transition hover:bg-[#F6F6F6]"
+            className="mt-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-background text-text/70 ring-1 ring-text/5 transition hover:bg-surface-muted"
             aria-label="Back to tables"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -42,7 +42,7 @@ export default function TableOrderDetailsPage({ table }: TableOrderDetailsPagePr
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-[28px] border border-black/5 bg-[#FCFCFC] shadow-[0_8px_24px_rgba(20,20,20,0.04)]">
+        <div className="overflow-hidden rounded-[28px] border border-text/5 bg-surface-panel shadow-[0_8px_24px_var(--shadow-color-soft)]">
           <div className="overflow-x-auto p-4 sm:p-5 lg:p-6">
             {orderDetails.hasItems ? (
               <table className="w-full min-w-[920px] border-separate border-spacing-0">
@@ -66,7 +66,7 @@ export default function TableOrderDetailsPage({ table }: TableOrderDetailsPagePr
                 <tbody>{orderDetails.sections.map(renderSection)}</tbody>
               </table>
             ) : (
-              <div className="flex min-h-[320px] flex-col items-center justify-center rounded-[24px] border border-dashed border-black/10 bg-white text-center">
+              <div className="flex min-h-[320px] flex-col items-center justify-center rounded-[24px] border border-dashed border-text/10 bg-background text-center">
                 <div className="text-xl font-semibold text-text">No items for this table yet</div>
                 <p className="mt-2 max-w-md text-sm text-text/55">
                   This table does not have any mocked order items yet. You can still keep the route and layout in place for the next data pass.
@@ -82,9 +82,9 @@ export default function TableOrderDetailsPage({ table }: TableOrderDetailsPagePr
             )}
           </div>
 
-          <div className="border-t border-black/6 bg-white px-4 py-4 sm:px-5 lg:px-6">
+          <div className="border-t border-text/6 bg-background px-4 py-4 sm:px-5 lg:px-6">
             <div className="mb-2 text-sm font-semibold text-text/60">Total</div>
-            <div className="flex flex-col gap-4 rounded-[20px] border border-black/10 p-3 sm:p-4">
+            <div className="flex flex-col gap-4 rounded-[20px] border border-text/10 p-3 sm:p-4">
               <div className="grid gap-2 text-sm text-text/70 sm:grid-cols-[1fr_auto]">
                 <div>Subtotal</div>
                 <div className="font-medium text-text">{formatCurrency(orderDetails.subtotal)}</div>
@@ -101,7 +101,7 @@ export default function TableOrderDetailsPage({ table }: TableOrderDetailsPagePr
                   type="button"
                   variant="outline"
                   onClick={openDiscountModal}
-                  className="h-11 rounded-xl border-black/10 px-5 text-sm font-semibold text-text"
+                  className="h-11 rounded-xl border-text/10 px-5 text-sm font-semibold text-text"
                 >
                   Discount
                 </Button>
@@ -156,12 +156,12 @@ export default function TableOrderDetailsPage({ table }: TableOrderDetailsPagePr
   function renderSection(section: (typeof orderDetails.sections)[number]) {
     return (
       <>
-        <tr key={`${section.category}-heading`} className="bg-[#FAFAFA]">
+        <tr key={`${section.category}-heading`} className="bg-surface-section">
           <td className="px-4 py-4">
             <button
               type="button"
               onClick={createAddDishOpener(section.category)}
-              className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#353535] text-white transition hover:bg-[#454545]"
+              className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-dark-button text-white transition hover:bg-dark-button-hover"
               aria-label={`Add ${section.category} dish`}
             >
               <Plus className="h-3.5 w-3.5" />

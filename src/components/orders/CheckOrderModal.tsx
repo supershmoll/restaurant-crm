@@ -61,7 +61,7 @@ export default function CheckOrderModal({
 
   return (
     <div className="fixed inset-0 z-[70]">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-scrim backdrop-blur-[1px]" />
 
       <div className="absolute inset-0 flex items-end justify-center p-4 sm:items-center">
         <div
@@ -69,9 +69,9 @@ export default function CheckOrderModal({
           role="dialog"
           aria-modal="true"
           aria-labelledby="check-order-title"
-          className="w-full max-w-3xl rounded-2xl bg-white shadow-xl ring-1 ring-black/10"
+          className="w-full max-w-3xl rounded-2xl bg-background shadow-xl ring-1 ring-text/10"
         >
-          <div className="border-b border-black/10 px-4 py-3 sm:px-6">
+          <div className="border-b border-text/10 px-4 py-3 sm:px-6">
             <h2 id="check-order-title" className="text-base font-semibold text-text sm:text-lg">
               Table {tableLabel} order
             </h2>
@@ -81,7 +81,7 @@ export default function CheckOrderModal({
           <div className="max-h-[70vh] space-y-5 overflow-auto p-4 sm:p-6">
             {sections.map(renderSection)}
 
-            <div className="rounded-2xl border border-black/8 bg-[#FCFCFC] p-4">
+            <div className="rounded-2xl border border-text/8 bg-surface-panel p-4">
               <div className="grid gap-2 text-sm text-text/70 sm:grid-cols-[1fr_auto]">
                 <div>Subtotal</div>
                 <div className="font-medium text-text">{formatCurrency(subtotal)}</div>
@@ -107,7 +107,7 @@ export default function CheckOrderModal({
 
   function renderSection(section: OrderSection) {
     return (
-      <div key={section.category} className="rounded-2xl border border-black/8 bg-[#FCFCFC] p-4">
+      <div key={section.category} className="rounded-2xl border border-text/8 bg-surface-panel p-4">
         <div className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-text/45">{section.category}</div>
         <div className="space-y-3">
           {section.items.map(renderItem)}
@@ -118,7 +118,7 @@ export default function CheckOrderModal({
 
   function renderItem(item: OrderLineItem) {
     return (
-      <div key={item.id} className="flex items-start justify-between gap-4 rounded-xl bg-white p-3 ring-1 ring-black/5">
+      <div key={item.id} className="flex items-start justify-between gap-4 rounded-xl bg-background p-3 ring-1 ring-text/5">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             <span className="font-medium text-text">{item.name}</span>

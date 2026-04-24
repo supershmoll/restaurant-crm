@@ -23,7 +23,7 @@ export default function FilterMultiSelect({
       <div className="grid grid-cols-1 gap-3">
         {filters.map((f) => (
           <div key={f.id} className="space-y-1.5">
-            <div className="text-xs font-semibold text-black/50">{f.label}</div>
+            <div className="text-xs font-semibold text-text/50">{f.label}</div>
             <FilterSelect
               label={f.label}
               value={f.value}

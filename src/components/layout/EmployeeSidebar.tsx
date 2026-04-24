@@ -55,7 +55,7 @@ function EmployeeSidebar() {
           <button
             type="button"
             onClick={toggleCollapsed}
-            className="grid h-10 w-10 place-items-center rounded-lg hover:bg-white/10 transition-colors"
+            className="grid h-10 w-10 place-items-center rounded-lg hover:bg-background/10 transition-colors"
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             <svg
@@ -81,11 +81,11 @@ function EmployeeSidebar() {
               className={[
                 "w-full rounded-lg p-3 transition-colors",
                 "flex items-center gap-3",
-                "hover:bg-white/10",
+                "hover:bg-background/10",
                 collapsed ? "justify-center" : "",
               ].join(" ")}
               activeProps={{
-                className: "bg-white/10",
+                className: "bg-background/10",
               }}
             >
               <img src={item.icon} alt={item.alt} className="h-6 w-6 shrink-0" />
@@ -97,7 +97,7 @@ function EmployeeSidebar() {
         <button
           onClick={handleLogout}
           className={[
-            "mt-auto w-full rounded-lg p-3 text-start transition-colors hover:bg-red-500/10 text-red-400",
+            "mt-auto w-full rounded-lg p-3 text-start transition-colors hover:bg-destructive/10 text-destructive",
             "flex items-center gap-3",
             collapsed ? "justify-center" : "",
           ].join(" ")}
@@ -121,7 +121,7 @@ function EmployeeSidebar() {
       </aside>
 
       {/* Mobile bottom navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-black/10 bg-white/90 backdrop-blur">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-text/10 bg-background/90 backdrop-blur">
         <div className="flex items-stretch justify-around px-2 pb-[env(safe-area-inset-bottom)]">
           {navLinks.map((item) => (
             <Link

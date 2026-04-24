@@ -103,7 +103,7 @@ function AdminSidebar() {
         <button
           onClick={handleLogout}
           className={[
-            "mt-auto w-full rounded-lg p-3 text-start transition-colors hover:bg-red-500/10 text-red-500",
+            "mt-auto w-full rounded-lg p-3 text-start transition-colors hover:bg-destructive/10 text-destructive",
             "flex items-center gap-3",
             collapsed ? "justify-center" : "",
           ].join(" ")}
@@ -127,7 +127,7 @@ function AdminSidebar() {
       </aside>
 
       {/* Mobile bottom navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-black/10 bg-white/90 backdrop-blur">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-text/10 bg-background/90 backdrop-blur">
         <div className="flex items-stretch justify-around px-2 pb-[env(safe-area-inset-bottom)]">
           {navLinks.map((item) => (
             <Link
