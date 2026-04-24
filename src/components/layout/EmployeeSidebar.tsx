@@ -4,6 +4,7 @@ import { clearAuth } from "@/features/auth/authUtils";
 import drink_light from "/images/drink_light.svg";
 import Desk_alt_light from "/images/Desk_alt_light.svg";
 import pie_chart_light from "/images/pie_chart_light.svg";
+
 function EmployeeSidebar() {
   const navigate = useNavigate();
 
@@ -136,7 +137,7 @@ function EmployeeSidebar() {
         </div>
       </nav>
     </>
-  )
+  );
 }
 
-export default EmployeeSidebar
+export default EmployeeSidebar;

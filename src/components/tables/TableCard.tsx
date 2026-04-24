@@ -1,10 +1,9 @@
-import { getTableStatusMeta, type TableStatus } from "@/components/tableStatus";
+import { getTableStatusMeta, type TableStatus } from "@/components/tables/tableStatus";
 
 type TableCardProps = {
   id: number;
-  label: string; 
+  label: string;
   status: TableStatus;
-  
   reservedTime?: string;
   onSelect?: (id: number) => void;
   className?: string;
@@ -57,4 +56,3 @@ export default function TableCard({ id, label, status, reservedTime, onSelect, c
 }
 
 export type { TableStatus, TableCardProps };
-

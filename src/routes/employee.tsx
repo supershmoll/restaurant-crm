@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
-import EmployeeSidebar from '@/components/EmployeeSidebar';
-import AppHeader from "@/components/AppHeader";
+import EmployeeSidebar from "@/components/layout/EmployeeSidebar";
+import AppHeader from "@/components/layout/AppHeader";
 import { getUser, isAdminOrModerator } from '@/features/auth/authUtils';
 
 export const Route = createFileRoute('/employee')({

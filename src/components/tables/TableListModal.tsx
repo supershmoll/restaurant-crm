@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import TableListItem from "@/components/TableListItem";
+import TableListItem from "@/components/tables/TableListItem";
 import type { TableItem } from "@/features/tables/tableTypes";
 
 type TableListModalProps = {

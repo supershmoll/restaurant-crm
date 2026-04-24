@@ -1,4 +1,4 @@
-import { getTableStatusMeta, type TableStatus } from "@/components/tableStatus";
+import { getTableStatusMeta, type TableStatus } from "@/components/tables/tableStatus";
 
 type TableListItemProps = {
   id: number;

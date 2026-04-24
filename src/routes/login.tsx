@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { Login } from '@/components/Login';
+import { Login } from "@/components/auth/Login";
 import { getUser, isAdminOrModerator } from '@/features/auth/authUtils';
 
 export const Route = createFileRoute('/login')({

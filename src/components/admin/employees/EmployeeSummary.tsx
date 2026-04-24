@@ -1,7 +1,7 @@
-import StatCard from "./StatCard";
-import { type Employee, useEmployeesQuery } from "../features/employees/useEmployeesQuery";
-import EmployeeListModal from "@/components/EmployeeListModal";
+import StatCard from "@/components/StatCard";
+import EmployeeListModal from "@/components/admin/employees/EmployeeListModal";
 import { useFilterModal } from "@/hooks/useFilterModal";
+import { type Employee, useEmployeesQuery } from "@/features/employees/useEmployeesQuery";
 
 type ModalKind = "all" | "admins" | "moderators";
 

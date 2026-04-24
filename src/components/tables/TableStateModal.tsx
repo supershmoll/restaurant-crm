@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import type { TableStatus } from "@/components/tableStatus";
+import type { TableStatus } from "@/components/tables/tableStatus";
 import { Button } from "@/components/ui/button";
 
 type TableStateModalProps = {
@@ -226,4 +226,3 @@ function StatusOptionButton({ optionId, label, active, onSelect }: StatusOptionB
     </button>
   );
 }
-

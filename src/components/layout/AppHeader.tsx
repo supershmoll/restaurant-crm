@@ -1,17 +1,15 @@
 import { useMemo, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import HeaderChatDrawer from "@/components/HeaderChatDrawer";
+import HeaderChatDrawer from "./HeaderChatDrawer";
 import { getUser } from "@/features/auth/authUtils";
 import { useEchoChat } from "@/hooks/useEchoChat";
 
 type AppHeaderProps = {
-  
   title?: string;
 };
 
 function titleFromPath(pathname: string): string {
   if (pathname === "/") return "Home";
-
 
   if (pathname.startsWith("/admin")) {
     if (pathname.startsWith("/admin/analytics")) return "Analytics";
@@ -94,4 +92,3 @@ export default function AppHeader({ title }: AppHeaderProps) {
     </>
   );
 }
-

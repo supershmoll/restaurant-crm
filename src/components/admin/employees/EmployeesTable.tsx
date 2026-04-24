@@ -79,8 +79,8 @@ function EmployeesTable() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full px-4 py-10 lg:px-8 lg:py-20">
-      <div className="w-full mb-4 flex items-center justify-between gap-3">
+    <div className="flex w-full flex-col items-center px-4 py-10 lg:px-8 lg:py-20">
+      <div className="mb-4 flex w-full items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <FiltersPopover>
             <div className="space-y-4">
@@ -119,18 +119,13 @@ function EmployeesTable() {
           </FiltersPopover>
 
           <div className="w-full max-w-sm">
-            <MySearch
-              placeholder="Search employees…"
-              delayMs={300}
-              onSearch={(value) => setQuery(value)}
-            />
+            <MySearch placeholder="Search employees…" delayMs={300} onSearch={(value) => setQuery(value)} />
           </div>
         </div>
-
       </div>
 
-      <div className="w-full rounded-2xl overflow-x-auto shadow-sm border-none">
-        <table className="w-full min-w-200 font-sans text-left border-collapse bg-background">
+      <div className="w-full overflow-x-auto rounded-2xl border-none shadow-sm">
+        <table className="min-w-200 w-full border-collapse bg-background font-sans text-left">
           <thead className="sr-only">
             <tr>
               <th>Select</th>
@@ -145,79 +140,72 @@ function EmployeesTable() {
           <tbody>
             {filteredUsers.length === 0 ? (
               <tr>
-                <td className="py-10 px-6 text-center text-text opacity-60" colSpan={6}>
+                <td className="px-6 py-10 text-center text-text opacity-60" colSpan={6}>
                   No employees match “{query.trim() || "—"}”.
                 </td>
               </tr>
             ) : (
               filteredUsers.map((user: Employee) => {
-              const isGroupA = user.id % 2 !== 0;
+                const isGroupA = user.id % 2 !== 0;
 
-              const formattedDate = new Date(user.birthDate).toLocaleDateString(
-                "en-US",
-                {
+                const formattedDate = new Date(user.birthDate).toLocaleDateString("en-US", {
                   month: "short",
                   day: "numeric",
                   year: "numeric",
-                }
-              );
+                });
 
-              return (
-                <tr
-                  key={user.id}
-                  className="even:bg-background-secondary odd:bg-background hover:bg-gray-50 transition-colors"
-                >
-                  <td className="py-4 pl-6 pr-2 w-12">
-                    <input
-                      className="w-4 h-4 rounded border-border-color cursor-pointer accent-dark-button"
-                      type="checkbox"
-                    />
-                  </td>
-
-                  <td className="py-4 px-4 min-w-62.5">
-                    <div className="flex items-center gap-4">
-                      <img
-                        className="w-11 h-11 rounded-full object-cover bg-gray-100 border border-gray-200 flex-none"
-                        src={user.image}
-                        alt={`${user.firstName}'s profile`}
+                return (
+                  <tr
+                    key={user.id}
+                    className="even:bg-background-secondary odd:bg-background transition-colors hover:bg-gray-50"
+                  >
+                    <td className="w-12 py-4 pl-6 pr-2">
+                      <input
+                        className="h-4 w-4 cursor-pointer rounded border-border-color accent-dark-button"
+                        type="checkbox"
                       />
-                      <div className="flex flex-col justify-center">
-                        <span className="text-base font-medium text-text leading-tight">
-                          {user.firstName} {user.lastName}
-                        </span>
-                        <span className="text-sm font-normal text-text opacity-50 mt-0.5">
-                          {user.email}
-                        </span>
+                    </td>
+
+                    <td className="min-w-62.5 px-4 py-4">
+                      <div className="flex items-center gap-4">
+                        <img
+                          className="h-11 w-11 flex-none rounded-full border border-gray-200 bg-gray-100 object-cover"
+                          src={user.image}
+                          alt={`${user.firstName}'s profile`}
+                        />
+                        <div className="flex flex-col justify-center">
+                          <span className="text-base leading-tight font-medium text-text">
+                            {user.firstName} {user.lastName}
+                          </span>
+                          <span className="mt-0.5 text-sm font-normal text-text opacity-50">
+                            {user.email}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td className="py-4 px-4">
-                    <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white ${
-                        isGroupA ? "bg-[#f5b85a]" : "bg-[#9dbdf5]"
-                      }`}
-                    >
-                      {isGroupA ? "A" : "B"}
-                    </div>
-                  </td>
+                    <td className="px-4 py-4">
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white ${
+                          isGroupA ? "bg-[#f5b85a]" : "bg-[#9dbdf5]"
+                        }`}
+                      >
+                        {isGroupA ? "A" : "B"}
+                      </div>
+                    </td>
 
-                  <td className="py-4 px-4 text-text font-normal text-sm md:text-base">
-                    {formattedDate}
-                  </td>
+                    <td className="px-4 py-4 text-sm font-normal text-text md:text-base">{formattedDate}</td>
 
-                  <td className="py-4 px-4 text-text font-normal text-sm md:text-base">
-                    Jan 11, 2023
-                  </td>
+                    <td className="px-4 py-4 text-sm font-normal text-text md:text-base">Jan 11, 2023</td>
 
-                  <td className="py-4 pr-6 pl-4 text-right">
-                    <button className="w-8 h-8 rounded-full bg-light-button hover:bg-gray-200 text-dark-button flex items-center justify-center ml-auto transition-colors font-medium">
-                      +
-                    </button>
-                  </td>
-                </tr>
-              );
-            })
+                    <td className="py-4 pr-6 pl-4 text-right">
+                      <button className="ml-auto flex h-8 w-8 items-center justify-center rounded-full bg-light-button font-medium text-dark-button transition-colors hover:bg-gray-200">
+                        +
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
