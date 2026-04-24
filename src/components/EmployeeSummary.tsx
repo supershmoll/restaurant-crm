@@ -1,35 +1,44 @@
 import StatCard from "./StatCard";
-import { useEmployeesQuery } from "../features/employees/useEmployeesQuery";
-import { useMemo, useState } from "react";
+import { type Employee, useEmployeesQuery } from "../features/employees/useEmployeesQuery";
 import EmployeeListModal from "@/components/EmployeeListModal";
+import { useFilterModal } from "@/hooks/useFilterModal";
+
+type ModalKind = "all" | "admins" | "moderators";
+
+function roleOf(role?: string) {
+  return (role ?? "").trim().toLowerCase();
+}
+
+function isAdmin(user: Employee) {
+  return roleOf(user.role) === "admin";
+}
+
+function isModerator(user: Employee) {
+  return roleOf(user.role) === "moderator";
+}
+
+const EMPLOYEE_MODAL_CONFIG = {
+  all: { title: "All Employees" },
+  admins: { title: "Admins", predicate: isAdmin },
+  moderators: { title: "Moderators", predicate: isModerator },
+} satisfies Record<ModalKind, { title: string; predicate?: (user: Employee) => boolean }>;
+
 function EmployeeSummary() {
   const { data } = useEmployeesQuery();
   const users = data?.users ?? [];
 
-  const roleOf = (role?: string) => (role ?? "").trim().toLowerCase();
-  const admins = users.filter((u) => roleOf(u.role) === "admin").length;
-  const moderators = users.filter((u) => roleOf(u.role) === "moderator").length;
+  const admins = users.filter(isAdmin).length;
+  const moderators = users.filter(isModerator).length;
 
-  type ModalKind = "all" | "admins" | "moderators";
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalKind, setModalKind] = useState<ModalKind>("all");
+  const employeeModal = useFilterModal<Employee, ModalKind>({
+    items: users,
+    config: EMPLOYEE_MODAL_CONFIG,
+    initialKind: "all" satisfies ModalKind,
+  });
 
-  const modalTitle = useMemo(() => {
-    switch (modalKind) {
-      case "admins":
-        return "Admins";
-      case "moderators":
-        return "Moderators";
-      default:
-        return "All Employees";
-    }
-  }, [modalKind]);
-
-  const modalEmployees = useMemo(() => {
-    if (modalKind === "admins") return users.filter((u) => roleOf(u.role) === "admin");
-    if (modalKind === "moderators") return users.filter((u) => roleOf(u.role) === "moderator");
-    return users;
-  }, [modalKind, users]);
+  function handleEmployeeModalOpen(kind: ModalKind) {
+    employeeModal.openModal(kind);
+  }
 
   return (
     <>
@@ -39,36 +48,30 @@ function EmployeeSummary() {
             <StatCard
               title="All Employees"
               value={users.length}
-              onView={() => {
-                setModalKind("all");
-                setModalOpen(true);
-              }}
+              viewValue="all"
+              onView={handleEmployeeModalOpen}
             />
             <StatCard
               title="Admins"
               value={admins}
-              onView={() => {
-                setModalKind("admins");
-                setModalOpen(true);
-              }}
+              viewValue="admins"
+              onView={handleEmployeeModalOpen}
             />
             <StatCard
               title="Moderators"
               value={moderators}
-              onView={() => {
-                setModalKind("moderators");
-                setModalOpen(true);
-              }}
+              viewValue="moderators"
+              onView={handleEmployeeModalOpen}
             />
           </div>
         </div>
       </div>
 
       <EmployeeListModal
-        open={modalOpen}
-        title={modalTitle}
-        employees={modalEmployees}
-        onClose={() => setModalOpen(false)}
+        open={employeeModal.open}
+        title={employeeModal.title}
+        employees={employeeModal.items}
+        onClose={employeeModal.closeModal}
       />
     </>
   );
