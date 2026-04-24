@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import type { TableStatus } from "@/components/tableStatus";
+import { Button } from "@/components/ui/button";
 
 type TableStateModalProps = {
   open: boolean;
@@ -181,6 +183,16 @@ export default function TableStateModal({
               >
                 Save
               </button>
+              <Button
+                asChild
+                type="button"
+                variant="outline"
+                className="h-10 rounded-xl border-black/10 px-4 text-sm font-semibold text-text"
+              >
+                <Link to="/employee/tables/$tableId" params={{ tableId: String(tableId) }} onClick={onClose}>
+                  View Order
+                </Link>
+              </Button>
             </div>
           </form>
         </div>

@@ -4,21 +4,20 @@ import AppHeader from "@/components/AppHeader";
 import { getUser, isAdminOrModerator } from '@/features/auth/authUtils';
 
 export const Route = createFileRoute('/admin')({
-  beforeLoad: () => {
-    const user = getUser();
-
-
-    if (!user) {
-      throw redirect({ to: '/login' });
-    }
-
-
-    if (!isAdminOrModerator(user)) {
-      throw redirect({ to: '/employee/tables' });
-    }
-  },
+  beforeLoad: beforeLoadAdminRoute,
   component: AdminLayout,
 });
+
+function beforeLoadAdminRoute() {
+  const user = getUser();
+  if (!user) {
+    throw redirect({ to: '/login' });
+  }
+
+  if (!isAdminOrModerator(user)) {
+    throw redirect({ to: '/employee/tables' });
+  }
+}
 
 function AdminLayout() {
   return (

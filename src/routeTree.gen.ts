@@ -22,6 +22,9 @@ import { Route as AdminShiftRouteImport } from './routes/admin/shift'
 import { Route as AdminPayrollRouteImport } from './routes/admin/payroll'
 import { Route as AdminEmployeesRouteImport } from './routes/admin/employees'
 import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
+import { Route as EmployeeTablesIndexRouteImport } from './routes/employee/tables/index'
+import { Route as EmployeeOrdersIndexRouteImport } from './routes/employee/orders/index'
+import { Route as EmployeeTablesTableIdRouteImport } from './routes/employee/tables/$tableId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -88,6 +91,21 @@ const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => AdminRoute,
 } as any)
+const EmployeeTablesIndexRoute = EmployeeTablesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EmployeeTablesRoute,
+} as any)
+const EmployeeOrdersIndexRoute = EmployeeOrdersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EmployeeOrdersRoute,
+} as any)
+const EmployeeTablesTableIdRoute = EmployeeTablesTableIdRouteImport.update({
+  id: '/$tableId',
+  path: '/$tableId',
+  getParentRoute: () => EmployeeTablesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -100,9 +118,12 @@ export interface FileRoutesByFullPath {
   '/admin/shift': typeof AdminShiftRoute
   '/admin/tasks': typeof AdminTasksRoute
   '/admin/vacation': typeof AdminVacationRoute
-  '/employee/orders': typeof EmployeeOrdersRoute
+  '/employee/orders': typeof EmployeeOrdersRouteWithChildren
   '/employee/statistics': typeof EmployeeStatisticsRoute
-  '/employee/tables': typeof EmployeeTablesRoute
+  '/employee/tables': typeof EmployeeTablesRouteWithChildren
+  '/employee/tables/$tableId': typeof EmployeeTablesTableIdRoute
+  '/employee/orders/': typeof EmployeeOrdersIndexRoute
+  '/employee/tables/': typeof EmployeeTablesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,9 +136,10 @@ export interface FileRoutesByTo {
   '/admin/shift': typeof AdminShiftRoute
   '/admin/tasks': typeof AdminTasksRoute
   '/admin/vacation': typeof AdminVacationRoute
-  '/employee/orders': typeof EmployeeOrdersRoute
   '/employee/statistics': typeof EmployeeStatisticsRoute
-  '/employee/tables': typeof EmployeeTablesRoute
+  '/employee/tables/$tableId': typeof EmployeeTablesTableIdRoute
+  '/employee/orders': typeof EmployeeOrdersIndexRoute
+  '/employee/tables': typeof EmployeeTablesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,9 +153,12 @@ export interface FileRoutesById {
   '/admin/shift': typeof AdminShiftRoute
   '/admin/tasks': typeof AdminTasksRoute
   '/admin/vacation': typeof AdminVacationRoute
-  '/employee/orders': typeof EmployeeOrdersRoute
+  '/employee/orders': typeof EmployeeOrdersRouteWithChildren
   '/employee/statistics': typeof EmployeeStatisticsRoute
-  '/employee/tables': typeof EmployeeTablesRoute
+  '/employee/tables': typeof EmployeeTablesRouteWithChildren
+  '/employee/tables/$tableId': typeof EmployeeTablesTableIdRoute
+  '/employee/orders/': typeof EmployeeOrdersIndexRoute
+  '/employee/tables/': typeof EmployeeTablesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +176,9 @@ export interface FileRouteTypes {
     | '/employee/orders'
     | '/employee/statistics'
     | '/employee/tables'
+    | '/employee/tables/$tableId'
+    | '/employee/orders/'
+    | '/employee/tables/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -163,8 +191,9 @@ export interface FileRouteTypes {
     | '/admin/shift'
     | '/admin/tasks'
     | '/admin/vacation'
-    | '/employee/orders'
     | '/employee/statistics'
+    | '/employee/tables/$tableId'
+    | '/employee/orders'
     | '/employee/tables'
   id:
     | '__root__'
@@ -181,6 +210,9 @@ export interface FileRouteTypes {
     | '/employee/orders'
     | '/employee/statistics'
     | '/employee/tables'
+    | '/employee/tables/$tableId'
+    | '/employee/orders/'
+    | '/employee/tables/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -283,6 +315,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/employee/tables/': {
+      id: '/employee/tables/'
+      path: '/'
+      fullPath: '/employee/tables/'
+      preLoaderRoute: typeof EmployeeTablesIndexRouteImport
+      parentRoute: typeof EmployeeTablesRoute
+    }
+    '/employee/orders/': {
+      id: '/employee/orders/'
+      path: '/'
+      fullPath: '/employee/orders/'
+      preLoaderRoute: typeof EmployeeOrdersIndexRouteImport
+      parentRoute: typeof EmployeeOrdersRoute
+    }
+    '/employee/tables/$tableId': {
+      id: '/employee/tables/$tableId'
+      path: '/$tableId'
+      fullPath: '/employee/tables/$tableId'
+      preLoaderRoute: typeof EmployeeTablesTableIdRouteImport
+      parentRoute: typeof EmployeeTablesRoute
+    }
   }
 }
 
@@ -306,16 +359,42 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface EmployeeOrdersRouteChildren {
+  EmployeeOrdersIndexRoute: typeof EmployeeOrdersIndexRoute
+}
+
+const EmployeeOrdersRouteChildren: EmployeeOrdersRouteChildren = {
+  EmployeeOrdersIndexRoute: EmployeeOrdersIndexRoute,
+}
+
+const EmployeeOrdersRouteWithChildren = EmployeeOrdersRoute._addFileChildren(
+  EmployeeOrdersRouteChildren,
+)
+
+interface EmployeeTablesRouteChildren {
+  EmployeeTablesTableIdRoute: typeof EmployeeTablesTableIdRoute
+  EmployeeTablesIndexRoute: typeof EmployeeTablesIndexRoute
+}
+
+const EmployeeTablesRouteChildren: EmployeeTablesRouteChildren = {
+  EmployeeTablesTableIdRoute: EmployeeTablesTableIdRoute,
+  EmployeeTablesIndexRoute: EmployeeTablesIndexRoute,
+}
+
+const EmployeeTablesRouteWithChildren = EmployeeTablesRoute._addFileChildren(
+  EmployeeTablesRouteChildren,
+)
+
 interface EmployeeRouteChildren {
-  EmployeeOrdersRoute: typeof EmployeeOrdersRoute
+  EmployeeOrdersRoute: typeof EmployeeOrdersRouteWithChildren
   EmployeeStatisticsRoute: typeof EmployeeStatisticsRoute
-  EmployeeTablesRoute: typeof EmployeeTablesRoute
+  EmployeeTablesRoute: typeof EmployeeTablesRouteWithChildren
 }
 
 const EmployeeRouteChildren: EmployeeRouteChildren = {
-  EmployeeOrdersRoute: EmployeeOrdersRoute,
+  EmployeeOrdersRoute: EmployeeOrdersRouteWithChildren,
   EmployeeStatisticsRoute: EmployeeStatisticsRoute,
-  EmployeeTablesRoute: EmployeeTablesRoute,
+  EmployeeTablesRoute: EmployeeTablesRouteWithChildren,
 }
 
 const EmployeeRouteWithChildren = EmployeeRoute._addFileChildren(
