@@ -7,7 +7,7 @@ export const Route = createFileRoute('/login')({
     const user = getUser();
     if (!user) return;
     throw redirect({
-      to: isAdminOrModerator(user) ? '/admin/analytics' : '/employee/tables',
+      to: isAdminOrModerator(user) ? '/admin/employees' : '/employee/tables',
     });
   },
   component: RouteComponent,

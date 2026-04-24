@@ -21,7 +21,7 @@ export function Login() {
         onSuccess: (data) => {
           saveAuth(data.token, data, rememberMe);
           const isAdmin = data.role === UserRole.Admin || data.role === UserRole.Moderator;
-          navigate({ to: isAdmin ? "/admin/analytics" : "/employee/tables" });
+          navigate({ to: isAdmin ? "/admin/employees" : "/employee/tables" });
         },
       }
     );

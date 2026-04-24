@@ -14,14 +14,8 @@ import { Route as EmployeeRouteImport } from './routes/employee'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmployeeTablesRouteImport } from './routes/employee/tables'
-import { Route as EmployeeStatisticsRouteImport } from './routes/employee/statistics'
 import { Route as EmployeeOrdersRouteImport } from './routes/employee/orders'
-import { Route as AdminVacationRouteImport } from './routes/admin/vacation'
-import { Route as AdminTasksRouteImport } from './routes/admin/tasks'
-import { Route as AdminShiftRouteImport } from './routes/admin/shift'
-import { Route as AdminPayrollRouteImport } from './routes/admin/payroll'
 import { Route as AdminEmployeesRouteImport } from './routes/admin/employees'
-import { Route as AdminAnalyticsRouteImport } from './routes/admin/analytics'
 import { Route as EmployeeTablesIndexRouteImport } from './routes/employee/tables/index'
 import { Route as EmployeeOrdersIndexRouteImport } from './routes/employee/orders/index'
 import { Route as EmployeeTablesTableIdRouteImport } from './routes/employee/tables/$tableId'
@@ -51,44 +45,14 @@ const EmployeeTablesRoute = EmployeeTablesRouteImport.update({
   path: '/tables',
   getParentRoute: () => EmployeeRoute,
 } as any)
-const EmployeeStatisticsRoute = EmployeeStatisticsRouteImport.update({
-  id: '/statistics',
-  path: '/statistics',
-  getParentRoute: () => EmployeeRoute,
-} as any)
 const EmployeeOrdersRoute = EmployeeOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
   getParentRoute: () => EmployeeRoute,
 } as any)
-const AdminVacationRoute = AdminVacationRouteImport.update({
-  id: '/vacation',
-  path: '/vacation',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminTasksRoute = AdminTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminShiftRoute = AdminShiftRouteImport.update({
-  id: '/shift',
-  path: '/shift',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminPayrollRoute = AdminPayrollRouteImport.update({
-  id: '/payroll',
-  path: '/payroll',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminEmployeesRoute = AdminEmployeesRouteImport.update({
   id: '/employees',
   path: '/employees',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
   getParentRoute: () => AdminRoute,
 } as any)
 const EmployeeTablesIndexRoute = EmployeeTablesIndexRouteImport.update({
@@ -112,14 +76,8 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/login': typeof LoginRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/employees': typeof AdminEmployeesRoute
-  '/admin/payroll': typeof AdminPayrollRoute
-  '/admin/shift': typeof AdminShiftRoute
-  '/admin/tasks': typeof AdminTasksRoute
-  '/admin/vacation': typeof AdminVacationRoute
   '/employee/orders': typeof EmployeeOrdersRouteWithChildren
-  '/employee/statistics': typeof EmployeeStatisticsRoute
   '/employee/tables': typeof EmployeeTablesRouteWithChildren
   '/employee/tables/$tableId': typeof EmployeeTablesTableIdRoute
   '/employee/orders/': typeof EmployeeOrdersIndexRoute
@@ -130,13 +88,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/login': typeof LoginRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/employees': typeof AdminEmployeesRoute
-  '/admin/payroll': typeof AdminPayrollRoute
-  '/admin/shift': typeof AdminShiftRoute
-  '/admin/tasks': typeof AdminTasksRoute
-  '/admin/vacation': typeof AdminVacationRoute
-  '/employee/statistics': typeof EmployeeStatisticsRoute
   '/employee/tables/$tableId': typeof EmployeeTablesTableIdRoute
   '/employee/orders': typeof EmployeeOrdersIndexRoute
   '/employee/tables': typeof EmployeeTablesIndexRoute
@@ -147,14 +99,8 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/employee': typeof EmployeeRouteWithChildren
   '/login': typeof LoginRoute
-  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/employees': typeof AdminEmployeesRoute
-  '/admin/payroll': typeof AdminPayrollRoute
-  '/admin/shift': typeof AdminShiftRoute
-  '/admin/tasks': typeof AdminTasksRoute
-  '/admin/vacation': typeof AdminVacationRoute
   '/employee/orders': typeof EmployeeOrdersRouteWithChildren
-  '/employee/statistics': typeof EmployeeStatisticsRoute
   '/employee/tables': typeof EmployeeTablesRouteWithChildren
   '/employee/tables/$tableId': typeof EmployeeTablesTableIdRoute
   '/employee/orders/': typeof EmployeeOrdersIndexRoute
@@ -167,14 +113,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/employee'
     | '/login'
-    | '/admin/analytics'
     | '/admin/employees'
-    | '/admin/payroll'
-    | '/admin/shift'
-    | '/admin/tasks'
-    | '/admin/vacation'
     | '/employee/orders'
-    | '/employee/statistics'
     | '/employee/tables'
     | '/employee/tables/$tableId'
     | '/employee/orders/'
@@ -185,13 +125,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/employee'
     | '/login'
-    | '/admin/analytics'
     | '/admin/employees'
-    | '/admin/payroll'
-    | '/admin/shift'
-    | '/admin/tasks'
-    | '/admin/vacation'
-    | '/employee/statistics'
     | '/employee/tables/$tableId'
     | '/employee/orders'
     | '/employee/tables'
@@ -201,14 +135,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/employee'
     | '/login'
-    | '/admin/analytics'
     | '/admin/employees'
-    | '/admin/payroll'
-    | '/admin/shift'
-    | '/admin/tasks'
-    | '/admin/vacation'
     | '/employee/orders'
-    | '/employee/statistics'
     | '/employee/tables'
     | '/employee/tables/$tableId'
     | '/employee/orders/'
@@ -259,13 +187,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmployeeTablesRouteImport
       parentRoute: typeof EmployeeRoute
     }
-    '/employee/statistics': {
-      id: '/employee/statistics'
-      path: '/statistics'
-      fullPath: '/employee/statistics'
-      preLoaderRoute: typeof EmployeeStatisticsRouteImport
-      parentRoute: typeof EmployeeRoute
-    }
     '/employee/orders': {
       id: '/employee/orders'
       path: '/orders'
@@ -273,46 +194,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmployeeOrdersRouteImport
       parentRoute: typeof EmployeeRoute
     }
-    '/admin/vacation': {
-      id: '/admin/vacation'
-      path: '/vacation'
-      fullPath: '/admin/vacation'
-      preLoaderRoute: typeof AdminVacationRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/tasks': {
-      id: '/admin/tasks'
-      path: '/tasks'
-      fullPath: '/admin/tasks'
-      preLoaderRoute: typeof AdminTasksRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/shift': {
-      id: '/admin/shift'
-      path: '/shift'
-      fullPath: '/admin/shift'
-      preLoaderRoute: typeof AdminShiftRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/payroll': {
-      id: '/admin/payroll'
-      path: '/payroll'
-      fullPath: '/admin/payroll'
-      preLoaderRoute: typeof AdminPayrollRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/admin/employees': {
       id: '/admin/employees'
       path: '/employees'
       fullPath: '/admin/employees'
       preLoaderRoute: typeof AdminEmployeesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/analytics': {
-      id: '/admin/analytics'
-      path: '/analytics'
-      fullPath: '/admin/analytics'
-      preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/employee/tables/': {
@@ -340,21 +226,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
-  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminEmployeesRoute: typeof AdminEmployeesRoute
-  AdminPayrollRoute: typeof AdminPayrollRoute
-  AdminShiftRoute: typeof AdminShiftRoute
-  AdminTasksRoute: typeof AdminTasksRoute
-  AdminVacationRoute: typeof AdminVacationRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
-  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminEmployeesRoute: AdminEmployeesRoute,
-  AdminPayrollRoute: AdminPayrollRoute,
-  AdminShiftRoute: AdminShiftRoute,
-  AdminTasksRoute: AdminTasksRoute,
-  AdminVacationRoute: AdminVacationRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
@@ -387,13 +263,11 @@ const EmployeeTablesRouteWithChildren = EmployeeTablesRoute._addFileChildren(
 
 interface EmployeeRouteChildren {
   EmployeeOrdersRoute: typeof EmployeeOrdersRouteWithChildren
-  EmployeeStatisticsRoute: typeof EmployeeStatisticsRoute
   EmployeeTablesRoute: typeof EmployeeTablesRouteWithChildren
 }
 
 const EmployeeRouteChildren: EmployeeRouteChildren = {
   EmployeeOrdersRoute: EmployeeOrdersRouteWithChildren,
-  EmployeeStatisticsRoute: EmployeeStatisticsRoute,
   EmployeeTablesRoute: EmployeeTablesRouteWithChildren,
 }
 

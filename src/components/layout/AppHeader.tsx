@@ -12,19 +12,13 @@ function titleFromPath(pathname: string): string {
   if (pathname === "/") return "Home";
 
   if (pathname.startsWith("/admin")) {
-    if (pathname.startsWith("/admin/analytics")) return "Analytics";
     if (pathname.startsWith("/admin/employees")) return "Employees";
-    if (pathname.startsWith("/admin/shift")) return "Shift";
-    if (pathname.startsWith("/admin/payroll")) return "Payroll";
-    if (pathname.startsWith("/admin/tasks")) return "Tasks";
-    if (pathname.startsWith("/admin/vacation")) return "Vacation";
     return "Admin";
   }
 
   if (pathname.startsWith("/employee")) {
     if (pathname.startsWith("/employee/tables")) return "Tables";
     if (pathname.startsWith("/employee/orders")) return "Orders";
-    if (pathname.startsWith("/employee/statistics")) return "Statistics";
     return "Employee";
   }
 
