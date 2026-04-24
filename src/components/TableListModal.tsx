@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useRef } from "react";
 import TableListItem from "@/components/TableListItem";
 import type { TableItem } from "@/features/tables/tableTypes";
 
@@ -7,12 +7,12 @@ type TableListModalProps = {
   title: string;
   tables: TableItem[];
   onClose: () => void;
-  onSelectTable?: (label: string) => void;
+  onSelectTable?: (id: number) => void;
 };
 
 export default function TableListModal({ open, title, tables, onClose, onSelectTable }: TableListModalProps) {
-  const titleId = useId();
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const titleId = "table-list-modal-title";
 
   useEffect(() => {
     if (!open) return;
@@ -84,7 +84,8 @@ export default function TableListModal({ open, title, tables, onClose, onSelectT
               ) : (
                 tables.map((table) => (
                   <TableListItem
-                    key={table.label}
+                    key={table.id}
+                    id={table.id}
                     label={table.label}
                     status={table.status}
                     reservedTime={table.reservedTime}

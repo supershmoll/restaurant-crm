@@ -1,19 +1,20 @@
 import { getTableStatusMeta, type TableStatus } from "@/components/tableStatus";
 
 type TableCardProps = {
+  id: number;
   label: string; 
   status: TableStatus;
   
   reservedTime?: string;
-  onSelect?: (label: string) => void;
+  onSelect?: (id: number) => void;
   className?: string;
 };
 
-export default function TableCard({ label, status, reservedTime, onSelect, className }: TableCardProps) {
+export default function TableCard({ id, label, status, reservedTime, onSelect, className }: TableCardProps) {
   const statusMeta = getTableStatusMeta(status);
 
   function handleClick() {
-    onSelect?.(label);
+    onSelect?.(id);
   }
 
   return (

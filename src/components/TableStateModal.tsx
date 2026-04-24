@@ -1,8 +1,9 @@
-import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import type { TableStatus } from "@/components/tableStatus";
 
 type TableStateModalProps = {
   open: boolean;
+  tableId: number;
   tableLabel: string;
   status: TableStatus;
   reservedTime?: string;
@@ -18,16 +19,17 @@ const STATUS_OPTIONS: { id: TableStatus; label: string }[] = [
 
 export default function TableStateModal({
   open,
+  tableId,
   tableLabel,
   status,
   reservedTime,
   onClose,
   onSave,
 }: TableStateModalProps) {
-  const titleId = useId();
   const panelRef = useRef<HTMLDivElement | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const reservedInputRef = useRef<HTMLInputElement | null>(null);
+  const titleId = `table-state-modal-title-${tableId}`;
 
   const [nextStatus, setNextStatus] = useState<TableStatus>(status);
   const [nextReservedTime, setNextReservedTime] = useState(reservedTime ?? "");

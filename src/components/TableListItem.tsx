@@ -1,18 +1,19 @@
 import { getTableStatusMeta, type TableStatus } from "@/components/tableStatus";
 
 type TableListItemProps = {
+  id: number;
   label: string;
   status: TableStatus;
   reservedTime?: string;
-  onSelect?: (label: string) => void;
+  onSelect?: (id: number) => void;
   className?: string;
 };
 
-export default function TableListItem({ label, status, reservedTime, onSelect, className }: TableListItemProps) {
+export default function TableListItem({ id, label, status, reservedTime, onSelect, className }: TableListItemProps) {
   const statusMeta = getTableStatusMeta(status);
 
   function handleClick() {
-    onSelect?.(label);
+    onSelect?.(id);
   }
 
   return (

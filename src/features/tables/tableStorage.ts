@@ -11,7 +11,9 @@ function normalizeTableItem(value: unknown): TableItem | null {
   if (!value || typeof value !== "object") return null;
 
   const candidate = value as Record<string, unknown>;
-  if (typeof candidate.label !== "string" || !isTableStatus(candidate.status)) return null;
+  if (typeof candidate.id !== "number" || typeof candidate.label !== "string" || !isTableStatus(candidate.status)) {
+    return null;
+  }
 
   const reservedTime = candidate.status === "reserved"
     && typeof candidate.reservedTime === "string"
@@ -20,6 +22,7 @@ function normalizeTableItem(value: unknown): TableItem | null {
     : undefined;
 
   return {
+    id: candidate.id,
     label: candidate.label,
     status: candidate.status,
     reservedTime,

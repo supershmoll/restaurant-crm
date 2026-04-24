@@ -38,9 +38,9 @@ function isReservedTable(table: TableItem) {
   return table.status === "reserved";
 }
 
-function getSelectedTable(tables: TableItem[], selectedLabel: string | null) {
-  if (!selectedLabel) return null;
-  return tables.find((table) => table.label === selectedLabel) ?? null;
+function getSelectedTable(tables: TableItem[], selectedTableId: number | null) {
+  if (selectedTableId === null) return null;
+  return tables.find((table) => table.id === selectedTableId) ?? null;
 }
 
 function getSummaryCards(tables: TableItem[]) {
@@ -61,14 +61,14 @@ function getSummaryCards(tables: TableItem[]) {
 
 function RouteComponent() {
   const [tables, setTables] = useState<TableItem[]>(() => loadTables());
-  const [selectedLabel, setSelectedLabel] = useState<string | null>(null);
+  const [selectedTableId, setSelectedTableId] = useState<number | null>(null);
 
   useEffect(() => {
     saveTables(tables);
   }, [tables]);
 
   type ModalKind = TableStatus;
-  const selected = getSelectedTable(tables, selectedLabel);
+  const selected = getSelectedTable(tables, selectedTableId);
   const summaryCards = getSummaryCards(tables);
 
   const tableModal = useFilterModal<TableItem, ModalKind>({
@@ -77,29 +77,29 @@ function RouteComponent() {
     initialKind: "free" satisfies ModalKind,
   });
 
-  function handleSelectLabel(label: string) {
-    setSelectedLabel(label);
+  function handleSelectTable(id: number) {
+    setSelectedTableId(id);
   }
 
   function handleCloseSelectedTable() {
-    setSelectedLabel(null);
+    setSelectedTableId(null);
   }
 
   function handleOpenTableModal(status: ModalKind) {
     tableModal.openModal(status);
   }
 
-  function handleSelectTableFromModal(label: string) {
+  function handleSelectTableFromModal(id: number) {
     tableModal.closeModal();
-    handleSelectLabel(label);
+    handleSelectTable(id);
   }
 
   function handleSaveTable(next: { status: TableStatus; reservedTime?: string }) {
-    if (!selectedLabel) return;
+    if (selectedTableId === null) return;
 
     setTables((prev) =>
       prev.map((table) =>
-        table.label === selectedLabel ? { ...table, status: next.status, reservedTime: next.reservedTime } : table
+        table.id === selectedTableId ? { ...table, status: next.status, reservedTime: next.reservedTime } : table
       )
     );
   }
@@ -123,11 +123,12 @@ function RouteComponent() {
         <div className="flex flex-col gap-3 lg:hidden">
           {tables.map((table) => (
             <TableListItem
-              key={table.label}
+              key={table.id}
+              id={table.id}
               label={table.label}
               status={table.status}
               reservedTime={table.reservedTime}
-              onSelect={handleSelectLabel}
+              onSelect={handleSelectTable}
             />
           ))}
         </div>
@@ -135,11 +136,12 @@ function RouteComponent() {
         <div className="hidden lg:grid lg:justify-between lg:gap-y-8 lg:[grid-template-columns:repeat(6,115px)]">
           {tables.map((table) => (
             <TableCard
-              key={table.label}
+              key={table.id}
+              id={table.id}
               label={table.label}
               status={table.status}
               reservedTime={table.reservedTime}
-              onSelect={handleSelectLabel}
+              onSelect={handleSelectTable}
             />
           ))}
         </div>
@@ -154,8 +156,9 @@ function RouteComponent() {
       />
 
       <TableStateModal
-        open={selectedLabel !== null && selected !== null}
-        tableLabel={selectedLabel ?? ""}
+        open={selectedTableId !== null && selected !== null}
+        tableId={selected?.id ?? 0}
+        tableLabel={selected?.label ?? ""}
         status={selected?.status ?? "free"}
         reservedTime={selected?.reservedTime}
         onClose={handleCloseSelectedTable}
