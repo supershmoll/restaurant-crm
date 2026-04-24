@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useRef } from "react";
 import type { Employee } from "@/features/employees/useEmployeesQuery";
 
 type EmployeeListModalProps = {
@@ -9,8 +9,8 @@ type EmployeeListModalProps = {
 };
 
 export default function EmployeeListModal({ open, title, employees, onClose }: EmployeeListModalProps) {
-  const titleId = useId();
   const panelRef = useRef<HTMLDivElement | null>(null);
+  const titleId = "employee-list-modal-title";
 
   useEffect(() => {
     if (!open) return;
