@@ -1,4 +1,3 @@
-
 import { createFileRoute } from "@tanstack/react-router";
 import EmployeesTable from "@/components/admin/employees/EmployeesTable";
 import EmployeeSummary from "@/components/admin/employees/EmployeeSummary";

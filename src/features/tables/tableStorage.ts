@@ -67,7 +67,6 @@ export function loadTables(): TableItem[] {
 export function getTableById(tableId: number): TableItem | null {
   return loadTables().find(createTableIdMatcher(tableId)) ?? null;
 }
-
 export function saveTables(tables: TableItem[]) {
   if (typeof window === "undefined") return;
   localStorage.setItem(TABLES_STORAGE_KEY, JSON.stringify(tables));

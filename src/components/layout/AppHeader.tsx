@@ -66,7 +66,7 @@ export default function AppHeader({ title }: AppHeaderProps) {
 
             <div className="min-w-0">
               <div
-                className="font-inter text-[16px] font-medium leading-[16px] tracking-normal text-right text-text truncate"
+                className="font-inter truncate text-right text-[16px] leading-[16px] font-medium tracking-normal text-text"
                 title={name || undefined}
               >
                 {name || "—"}
