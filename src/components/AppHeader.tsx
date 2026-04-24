@@ -3,14 +3,14 @@ import { useRouterState } from "@tanstack/react-router";
 import { getUser } from "@/features/auth/authUtils";
 
 type AppHeaderProps = {
-  /** Override computed page title. */
+  
   title?: string;
 };
 
 function titleFromPath(pathname: string): string {
   if (pathname === "/") return "Home";
 
-  // Admin pages
+
   if (pathname.startsWith("/admin")) {
     if (pathname.startsWith("/admin/analytics")) return "Analytics";
     if (pathname.startsWith("/admin/employees")) return "Employees";
@@ -21,7 +21,6 @@ function titleFromPath(pathname: string): string {
     return "Admin";
   }
 
-  // Employee pages
   if (pathname.startsWith("/employee")) {
     if (pathname.startsWith("/employee/tables")) return "Tables";
     if (pathname.startsWith("/employee/orders")) return "Orders";

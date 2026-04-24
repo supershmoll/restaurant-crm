@@ -1,9 +1,9 @@
 import { getTableStatusMeta, type TableStatus } from "@/components/tableStatus";
 
 type TableCardProps = {
-  label: string; // e.g. "1", "A1"
+  label: string; 
   status: TableStatus;
-  /** Displayed for reserved tables (e.g. "22:30"). */
+  
   reservedTime?: string;
   onSelect?: (label: string) => void;
   className?: string;
