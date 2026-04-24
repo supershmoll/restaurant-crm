@@ -1,20 +1,17 @@
-import { useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
-import { Button } from '@/components/ui/button';
-import { useLogin } from '@/features/auth/useLogin';
-import { saveAuth } from '@/features/auth/authUtils';
-import { UserRole } from '@/types/auth';
+import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { useLogin } from "@/features/auth/useLogin";
+import { saveAuth } from "@/features/auth/authUtils";
+import { UserRole } from "@/types/auth";
 
 export function Login() {
-
-  const [username, setUsername] = useState('emilys'); 
-  const [password, setPassword] = useState('emilyspass');
+  const [username, setUsername] = useState("emilys");
+  const [password, setPassword] = useState("emilyspass");
   const [rememberMe, setRememberMe] = useState(false);
-  
 
   const navigate = useNavigate();
   const loginMutation = useLogin();
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,10 +19,9 @@ export function Login() {
       { username, password },
       {
         onSuccess: (data) => {
-
           saveAuth(data.token, data, rememberMe);
           const isAdmin = data.role === UserRole.Admin || data.role === UserRole.Moderator;
-          navigate({ to: isAdmin ? '/admin/analytics' : '/employee/tables' });
+          navigate({ to: isAdmin ? "/admin/employees" : "/employee/tables" });
         },
       }
     );
@@ -49,15 +45,12 @@ export function Login() {
       <div className="relative mx-auto flex w-full max-w-md flex-col gap-5 rounded-2xl border border-border-color bg-background-secondary/80 p-6 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background-secondary/70">
         <div>
           <h1 className="mt-1 text-2xl font-semibold">Sign in</h1>
-          <p className="mt-1 text-sm text-text/60">
-            Welcome back. Please enter your credentials.
-          </p>
+          <p className="mt-1 text-sm text-text/60">Welcome back. Please enter your credentials.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          
           {loginMutation.isError && (
-            <div className="text-sm text-red-500 bg-red-500/10 p-2 rounded-lg text-center">
+            <div className="rounded-lg bg-destructive/10 p-2 text-center text-sm text-destructive">
               Invalid username or password
             </div>
           )}
@@ -94,7 +87,7 @@ export function Login() {
             />
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-text/70 cursor-pointer select-none">
+          <label className="flex cursor-pointer select-none items-center gap-2 text-sm text-text/70">
             <input
               type="checkbox"
               checked={rememberMe}
@@ -104,12 +97,8 @@ export function Login() {
             Remember me
           </label>
 
-          <Button 
-            type="submit" 
-            className="h-10"
-            disabled={loginMutation.isPending}
-          >
-            {loginMutation.isPending ? 'Signing in...' : 'Login'}
+          <Button type="submit" className="h-10" disabled={loginMutation.isPending}>
+            {loginMutation.isPending ? "Signing in..." : "Login"}
           </Button>
         </form>
       </div>

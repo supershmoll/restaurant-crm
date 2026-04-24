@@ -1,4 +1,4 @@
-import type { TableStatus } from "@/components/tableStatus";
+import type { TableStatus } from "@/components/tables/tableStatus";
 
 export type TableItem = {
   id: number;

@@ -1,11 +1,21 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type FiltersPopoverProps = {
   label?: string;
   children: React.ReactNode;
+  className?: string;
+  buttonClassName?: string;
+  panelClassName?: string;
 };
 
-export default function FiltersPopover({ label = "Filters", children }: FiltersPopoverProps) {
+export default function FiltersPopover({
+  label = "Filters",
+  children,
+  className,
+  buttonClassName,
+  panelClassName,
+}: FiltersPopoverProps) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -33,14 +43,17 @@ export default function FiltersPopover({ label = "Filters", children }: FiltersP
   }, [open]);
 
   return (
-    <div ref={rootRef} className="relative inline-flex">
+    <div ref={rootRef} className={cn("relative inline-flex flex-col items-end", className)}>
       <button
         type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#F6F6F6] px-4 text-sm font-medium text-text ring-1 ring-black/5 transition hover:bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+        className={cn(
+          "inline-flex h-10 items-center gap-2 rounded-xl bg-surface-muted px-4 text-sm font-medium text-text ring-1 ring-text/5 transition hover:bg-surface-muted-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15",
+          buttonClassName
+        )}
       >
         <svg
           width="16"
@@ -48,7 +61,7 @@ export default function FiltersPopover({ label = "Filters", children }: FiltersP
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-black/60"
+          className="text-text/60"
         >
           <path
             d="M3 5h18l-7 8v5l-4 2v-7L3 5z"
@@ -65,7 +78,10 @@ export default function FiltersPopover({ label = "Filters", children }: FiltersP
           id={panelId}
           role="dialog"
           aria-label={`${label} panel`}
-          className="absolute left-0 top-12 z-50 w-80 rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/10"
+          className={cn(
+            "absolute top-12 right-0 z-50 w-[min(20rem,calc(100vw-3rem))] rounded-2xl bg-background p-4 shadow-lg ring-1 ring-text/10",
+            panelClassName
+          )}
         >
           {children}
         </div>

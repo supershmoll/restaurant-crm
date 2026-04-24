@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import type { TableStatus } from "@/components/tableStatus";
+import { Link } from "@tanstack/react-router";
+import type { TableStatus } from "@/components/tables/tableStatus";
+import { Button } from "@/components/ui/button";
 
 type TableStateModalProps = {
   open: boolean;
@@ -108,7 +110,7 @@ export default function TableStateModal({
 
   return (
     <div className="fixed inset-0 z-[60]">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-scrim backdrop-blur-[1px]" />
 
       <div className="absolute inset-0 flex items-end justify-center p-4 sm:items-center">
         <div
@@ -116,9 +118,9 @@ export default function TableStateModal({
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
-          className="w-full max-w-lg rounded-2xl bg-white shadow-xl ring-1 ring-black/10"
+          className="w-full max-w-lg rounded-2xl bg-background shadow-xl ring-1 ring-text/10"
         >
-          <div className="flex items-center justify-between gap-4 border-b border-black/10 px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-between gap-4 border-b border-text/10 px-4 py-3 sm:px-6">
             <div className="min-w-0">
               <h2 id={titleId} className="truncate text-base font-semibold text-text sm:text-lg">
                 Table {tableLabel}
@@ -129,7 +131,7 @@ export default function TableStateModal({
             <button
               type="button"
               onClick={onClose}
-              className="grid h-10 w-10 place-items-center rounded-xl bg-[#F6F6F6] text-text ring-1 ring-black/5 transition hover:bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+              className="grid h-10 w-10 place-items-center rounded-xl bg-surface-muted text-text ring-1 ring-text/5 transition hover:bg-surface-muted-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15"
               aria-label="Close"
             >
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -167,7 +169,7 @@ export default function TableStateModal({
                   value={nextReservedTime}
                   onChange={handleReservedTimeChange}
                   placeholder="e.g. 18:00"
-                  className="h-10 w-full rounded-xl bg-white px-3 text-sm text-text ring-1 ring-black/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+                  className="h-10 w-full rounded-xl bg-background px-3 text-sm text-text ring-1 ring-text/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15"
                 />
                 <div className="mt-2 text-xs text-text/60">Enter to confirm, Esc to discard.</div>
               </label>
@@ -177,10 +179,20 @@ export default function TableStateModal({
               <button
                 type="submit"
                 disabled={!canSave}
-                className="h-10 rounded-xl bg-dark-button px-4 text-sm font-semibold text-white ring-1 ring-black/10 transition hover:bg-dark-button/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15 disabled:cursor-not-allowed disabled:opacity-60"
+                className="h-10 rounded-xl bg-dark-button px-4 text-sm font-semibold text-white ring-1 ring-text/10 transition hover:bg-dark-button/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Save
               </button>
+              <Button
+                asChild
+                type="button"
+                variant="outline"
+                className="h-10 rounded-xl border-text/10 px-4 text-sm font-semibold text-text"
+              >
+                <Link to="/employee/tables/$tableId" params={{ tableId: String(tableId) }} onClick={onClose}>
+                  View Order
+                </Link>
+              </Button>
             </div>
           </form>
         </div>
@@ -206,12 +218,11 @@ function StatusOptionButton({ optionId, label, active, onSelect }: StatusOptionB
       type="button"
       onClick={handleClick}
       className={[
-        "h-10 rounded-xl px-3 text-sm font-semibold ring-1 ring-black/10 transition",
-        active ? "bg-dark-button text-white ring-black/10" : "bg-white text-text hover:bg-[#F6F6F6]",
+        "h-10 rounded-xl px-3 text-sm font-semibold ring-1 ring-text/10 transition",
+        active ? "bg-dark-button text-white ring-text/10" : "bg-background text-text hover:bg-surface-muted",
       ].join(" ")}
     >
       {label}
     </button>
   );
 }
-

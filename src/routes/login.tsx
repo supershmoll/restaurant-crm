@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { Login } from '@/components/Login';
+import { Login } from "@/components/auth/Login";
 import { getUser, isAdminOrModerator } from '@/features/auth/authUtils';
 
 export const Route = createFileRoute('/login')({
@@ -7,7 +7,7 @@ export const Route = createFileRoute('/login')({
     const user = getUser();
     if (!user) return;
     throw redirect({
-      to: isAdminOrModerator(user) ? '/admin/analytics' : '/employee/tables',
+      to: isAdminOrModerator(user) ? '/admin/employees' : '/employee/tables',
     });
   },
   component: RouteComponent,

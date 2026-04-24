@@ -1,7 +1,6 @@
-
 import { createFileRoute } from "@tanstack/react-router";
-import EmployeesTable from "@/components/EmployeesTable";
-import EmployeeSummary from "@/components/EmployeeSummary";
+import EmployeesTable from "@/components/admin/employees/EmployeesTable";
+import EmployeeSummary from "@/components/admin/employees/EmployeeSummary";
 
 export const Route = createFileRoute("/admin/employees")({
   component: RouteComponent,

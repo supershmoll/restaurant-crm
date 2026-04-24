@@ -1,60 +1,75 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { clearAuth } from "@/features/auth/authUtils";
-import drink_light from "/images/drink_light.svg";
-import Desk_alt_light from "/images/Desk_alt_light.svg";
-import pie_chart_light from "/images/pie_chart_light.svg";
-function EmployeeSidebar() {
-  const navigate = useNavigate();
 
-  const storageKey = "employeeSidebarCollapsed";
+export type SidebarLink = {
+  to: string;
+  label: string;
+  icon: string;
+  alt: string;
+};
+
+type AppSidebarProps = {
+  storageKey: string;
+  links: SidebarLink[];
+  tone: "light" | "dark";
+};
+
+const DESKTOP_SIDEBAR_CLASSES = {
+  light: "bg-background-secondary text-text",
+  dark: "bg-dark-background text-white",
+} as const;
+
+const ITEM_STATE_CLASSES = {
+  light: {
+    hover: "hover:bg-background-primary",
+    active: "bg-background-primary",
+  },
+  dark: {
+    hover: "hover:bg-background/10",
+    active: "bg-background/10",
+  },
+} as const;
+
+export default function AppSidebar({ storageKey, links, tone }: AppSidebarProps) {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const itemStateClasses = ITEM_STATE_CLASSES[tone];
 
   useEffect(() => {
     const raw = localStorage.getItem(storageKey);
     if (raw === "1") setCollapsed(true);
-  }, []);
+  }, [storageKey]);
 
-  const toggleCollapsed = () => {
+  function toggleCollapsed() {
     setCollapsed((prev) => {
       const next = !prev;
       localStorage.setItem(storageKey, next ? "1" : "0");
       return next;
     });
-  };
+  }
 
-  const navLinks = useMemo(
-    () =>
-      [
-        { to: "/employee/tables", label: "Tables", icon: drink_light, alt: "Drink" },
-        { to: "/employee/orders", label: "Orders", icon: Desk_alt_light, alt: "Desk" },
-        { to: "/employee/statistics", label: "Statistics", icon: pie_chart_light, alt: "Pie" },
-      ] as const,
-    []
-  );
-
-  const handleLogout = () => {
+  function handleLogout() {
     clearAuth();
     navigate({ to: "/login" });
-  };
+  }
 
   return (
     <>
-      {/* Desktop sidebar */}
       <aside
         className={[
-          "hidden md:flex h-screen flex-col gap-6 bg-dark-background p-4 text-white",
-          "transition-[width] duration-200",
+          "hidden h-screen flex-col gap-6 p-4 transition-[width] duration-200 md:flex",
+          DESKTOP_SIDEBAR_CLASSES[tone],
           collapsed ? "w-20" : "w-65",
         ].join(" ")}
       >
         <div className={["flex items-center", collapsed ? "justify-center" : "justify-between"].join(" ")}>
-          <h2 className={collapsed ? "sr-only" : "font-bebas text-2xl text-center"}>Restaurant CRM</h2>
+          <h2 className={collapsed ? "sr-only" : "font-bebas text-2xl"}>Restaurant CRM</h2>
 
           <button
             type="button"
             onClick={toggleCollapsed}
-            className="grid h-10 w-10 place-items-center rounded-lg hover:bg-white/10 transition-colors"
+            className={["grid h-10 w-10 place-items-center rounded-lg transition-colors", itemStateClasses.hover].join(" ")}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             <svg
@@ -73,18 +88,17 @@ function EmployeeSidebar() {
         <hr className="border-0.25 border-border-color" />
 
         <nav className="flex flex-col gap-2">
-          {navLinks.map((item) => (
+          {links.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               className={[
-                "w-full rounded-lg p-3 transition-colors",
-                "flex items-center gap-3",
-                "hover:bg-white/10",
+                "flex w-full items-center gap-3 rounded-lg p-3 transition-colors",
+                itemStateClasses.hover,
                 collapsed ? "justify-center" : "",
               ].join(" ")}
               activeProps={{
-                className: "bg-white/10",
+                className: itemStateClasses.active,
               }}
             >
               <img src={item.icon} alt={item.alt} className="h-6 w-6 shrink-0" />
@@ -96,8 +110,7 @@ function EmployeeSidebar() {
         <button
           onClick={handleLogout}
           className={[
-            "mt-auto w-full rounded-lg p-3 text-start transition-colors hover:bg-red-500/10 text-red-400",
-            "flex items-center gap-3",
+            "mt-auto flex w-full items-center gap-3 rounded-lg p-3 text-start text-destructive transition-colors hover:bg-destructive/10",
             collapsed ? "justify-center" : "",
           ].join(" ")}
         >
@@ -119,10 +132,9 @@ function EmployeeSidebar() {
         </button>
       </aside>
 
-      {/* Mobile bottom navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-black/10 bg-white/90 backdrop-blur">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-text/10 bg-background/90 backdrop-blur md:hidden">
         <div className="flex items-stretch justify-around px-2 pb-[env(safe-area-inset-bottom)]">
-          {navLinks.map((item) => (
+          {links.map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -136,7 +148,5 @@ function EmployeeSidebar() {
         </div>
       </nav>
     </>
-  )
+  );
 }
-
-export default EmployeeSidebar

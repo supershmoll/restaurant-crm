@@ -1,10 +1,9 @@
-import { getTableStatusMeta, type TableStatus } from "@/components/tableStatus";
+import { getTableStatusMeta, type TableStatus } from "@/components/tables/tableStatus";
 
 type TableCardProps = {
   id: number;
-  label: string; 
+  label: string;
   status: TableStatus;
-  
   reservedTime?: string;
   onSelect?: (id: number) => void;
   className?: string;
@@ -23,7 +22,7 @@ export default function TableCard({ id, label, status, reservedTime, onSelect, c
       onClick={handleClick}
       className={[
         "relative h-[120px] w-[115px] rounded-2xl border border-border-color/60",
-        "shadow-[0_1px_0_rgba(0,0,0,0.02)]",
+        "shadow-[0_1px_0_var(--shadow-color-table)]",
         "transition-transform hover:-translate-y-0.5 active:scale-[0.99]",
         "text-left",
         statusMeta.surfaceClassName,
@@ -57,4 +56,3 @@ export default function TableCard({ id, label, status, reservedTime, onSelect, c
 }
 
 export type { TableStatus, TableCardProps };
-

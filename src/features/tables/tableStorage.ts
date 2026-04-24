@@ -64,7 +64,16 @@ export function loadTables(): TableItem[] {
   return cloneTables(parsed ?? getMockTables());
 }
 
+export function getTableById(tableId: number): TableItem | null {
+  return loadTables().find(createTableIdMatcher(tableId)) ?? null;
+}
 export function saveTables(tables: TableItem[]) {
   if (typeof window === "undefined") return;
   localStorage.setItem(TABLES_STORAGE_KEY, JSON.stringify(tables));
+}
+
+function createTableIdMatcher(tableId: number) {
+  return function matchTableById(table: TableItem) {
+    return table.id === tableId;
+  };
 }

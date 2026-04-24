@@ -43,7 +43,7 @@ export default function EmployeeListModal({ open, title, employees, onClose }: E
 
   return (
     <div className="fixed inset-0 z-[60]">
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 bg-scrim backdrop-blur-[1px]" />
 
       <div className="absolute inset-0 flex items-end justify-center p-4 sm:items-center">
         <div
@@ -51,9 +51,9 @@ export default function EmployeeListModal({ open, title, employees, onClose }: E
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
-          className="w-full max-w-3xl rounded-2xl bg-white shadow-xl ring-1 ring-black/10"
+          className="w-full max-w-3xl rounded-2xl bg-background shadow-xl ring-1 ring-text/10"
         >
-          <div className="flex items-center justify-between gap-4 border-b border-black/10 px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-between gap-4 border-b border-text/10 px-4 py-3 sm:px-6">
             <div className="min-w-0">
               <h2 id={titleId} className="truncate text-base font-semibold text-text sm:text-lg">
                 {title}
@@ -64,7 +64,7 @@ export default function EmployeeListModal({ open, title, employees, onClose }: E
             <button
               type="button"
               onClick={onClose}
-              className="grid h-10 w-10 place-items-center rounded-xl bg-[#F6F6F6] text-text ring-1 ring-black/5 transition hover:bg-[#F0F0F0] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15"
+              className="grid h-10 w-10 place-items-center rounded-xl bg-surface-muted text-text ring-1 ring-text/5 transition hover:bg-surface-muted-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-text/15"
               aria-label="Close"
             >
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -74,9 +74,9 @@ export default function EmployeeListModal({ open, title, employees, onClose }: E
           </div>
 
           <div className="max-h-[70vh] overflow-auto p-4 sm:p-6">
-            <div className="overflow-x-auto rounded-2xl ring-1 ring-black/5">
-              <table className="min-w-[640px] w-full border-collapse bg-white text-left">
-                <thead className="sticky top-0 bg-white">
+            <div className="overflow-x-auto rounded-2xl ring-1 ring-text/5">
+              <table className="min-w-[640px] w-full border-collapse bg-background text-left">
+                <thead className="sticky top-0 bg-background">
                   <tr className="text-xs font-semibold uppercase tracking-wide text-text/50">
                     <th className="px-4 py-3">Employee</th>
                     <th className="px-4 py-3">Role</th>
@@ -92,13 +92,13 @@ export default function EmployeeListModal({ open, title, employees, onClose }: E
                     </tr>
                   ) : (
                     employees.map((e) => (
-                      <tr key={e.id} className="border-t border-black/5">
+                      <tr key={e.id} className="border-t border-text/5">
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             <img
                               src={e.image}
                               alt={`${e.firstName} ${e.lastName}`}
-                              className="h-10 w-10 rounded-full object-cover bg-gray-100 ring-1 ring-black/10"
+                              className="h-10 w-10 rounded-full object-cover bg-muted ring-1 ring-text/10"
                             />
                             <div className="min-w-0">
                               <div className="truncate text-sm font-medium text-text">
@@ -121,4 +121,3 @@ export default function EmployeeListModal({ open, title, employees, onClose }: E
     </div>
   );
 }
-
